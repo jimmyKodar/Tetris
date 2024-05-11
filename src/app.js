@@ -165,23 +165,22 @@ const gameBoard = [
 ];
 createPixels();
 setupGameBoard();
-let nrOfRenderedFrames = 0;
 
 let gameTimeIntervalID;
 let frameTime = 200;
+let currentFrame = 1;
+let prevFrame = 0;
 /////////////////////////////////////////////////////////////////////////////
 // CONTROLS
 document.querySelector("#startButton").addEventListener("click", startGame);
 document.querySelector("#pauseButton").addEventListener("click", pauseGame);
-document.addEventListener("keydown", keyPressDown);
-document.addEventListener("keyup", keyPressUp);
+document.addEventListener("keydown", keyDown);
+document.addEventListener("keyup", keyUp);
 
 let moveLeft = false;
 let moveRight = false;
-// sets to nrOfRenderedFrames when a key is pressed to register intra-frame input
-let currentFrame = 0;
 
-function keyPressDown(key) {
+function keyDown(key) {
   if (key.key == "ArrowLeft") {
     moveLeft = true;
     moveRight = false;
@@ -190,19 +189,20 @@ function keyPressDown(key) {
     moveLeft = false;
     moveRight = true;
   }
-  if (key.key == "ArrowDown" && frameTime > 50) {
+  if (key.key == "ArrowDown" && frameTime > 25) {
     frameTime = 25;
     pauseGame();
     startGame();
   }
 }
-function keyPressUp(key) {
-  if (key.key == "ArrowRight" && currentFrame !== nrOfRenderedFrames) {
-    moveRight = false;
-  }
+function keyUp(key) {
   if (key.key == "ArrowLeft") {
     moveLeft = false;
   }
+  if (key.key == "ArrowRight") {
+    moveRight = false;
+  }
+
   if (key.key == "ArrowDown") {
     frameTime = 200;
     pauseGame();
@@ -260,5 +260,4 @@ function gameLoop() {
   }
 
   render();
-  nrOfRenderedFrames += 1;
 }

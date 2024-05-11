@@ -25,3 +25,4 @@ The `gameBoard[][]` has its origo at top left (index: `[0][0]`). The `gameBoard[
 # Known bugs
 
 - (Rendering) Background color shines through on some zoom levels.
+- (input) Side movment does not register if keyDown and keyUp events happen between frames. (sub 200ms). And if a make my own toggle that i reset each frame a lag is introduced the following frame. Probably because the game loop is inside of a setInterval() function.

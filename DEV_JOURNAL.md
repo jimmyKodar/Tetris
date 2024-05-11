@@ -26,7 +26,7 @@ Started a github account and added this project.
 
 Game works. Blocks are spawned, blocks stop at the bottom. Game over happens if a frozen block exists in the top 3 rows.
 
-Added side movment and quickdrop. But side movment is broken.
+Added side movment and quickdrop. Movment is not registered if keypress happens to fast (less than framTime). But its good enough now so i save that one for the end.
 
 ## 2024-05-09
 
