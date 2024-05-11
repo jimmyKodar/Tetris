@@ -2,7 +2,9 @@
 
 I make this Tetris clone to learn JavaScript, CSS and HTML.
 
-My goal is to keep rendering and game logic separate. This way it is possible to implement the game in future projects. HTML5 canvas, webGPU / webGL etc.
+My goal is to keep rendering and game logic separate.
+
+This way it is possible to implement the game in future projects. HTML5 canvas, webGPU / webGL etc.
 
 # How it works
 
@@ -18,5 +20,4 @@ The `gameBoard[][]` has its origo at top left (index: `[0][0]`). The `gameBoard[
 - "1" = live blocks that are in motion.
 - Actual play area is 20x10 since:
   - Top 3 rows are the spawn area.
-  - First and last column are the walls.
-  - Bottom row is set to "-1" for collision detection.
+  - First and last column and the bottom row are the edges.
