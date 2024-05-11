@@ -1,6 +1,6 @@
 ## Whats next?
 
-- GREAT TIME PROBLEM: Made a new branch because i realised timing is fundamentally messed up. I need to redo al lthe timing logic with "requestAnimationFrame()" instead.
+- GREAT TIME PROBLEM: Made a new branch because i realised timing is fundamentally messed up. I need to redo al lthe timing logic with "requestAnimationFrame()" instead. THIS IS NOW DONE.
 - SIDEMOVMENT:
   - if you move sidways you can intersect with frozen blocks if the collision is corner vs corner.
 - Add block rotation
