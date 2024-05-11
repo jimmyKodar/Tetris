@@ -2,13 +2,6 @@
 
 - SIDEMOVMENT:
   - if you move sidways you can intersect with frozen blocks if the collision is corner vs corner.
-  - pressing arrow L/R to fast does not register. Needs to be toggle until next frame starts. UPDATE: Needs to force check input at the start of every frame.
-- finish isSpawnFieldEmpty() function
-- figure out how correctly not move blocks in spawn area. Problem is that blocks can get split in half if user moves sidways when they enter the playfield.
-
-  - EDIT: Got it, just check if spawn area is empty before movment is allowed.
-  - Also: Watched videos of classic tetris and the tetronimos just spawn on the top 2 rows. they dont travel down from the spawn area.
-
 - Add block rotation
 - remove full rows
 - start pause reset buttons
