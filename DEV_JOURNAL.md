@@ -1,5 +1,6 @@
 ## Whats next?
 
+- GREAT TIME PROBLEM: Made a new branch because i realised timing is fundamentally messed up. I need to redo al lthe timing logic with "requestAnimationFrame()" instead.
 - SIDEMOVMENT:
   - if you move sidways you can intersect with frozen blocks if the collision is corner vs corner.
 - Add block rotation
@@ -20,6 +21,9 @@ Started a github account and added this project.
 Game works. Blocks are spawned, blocks stop at the bottom. Game over happens if a frozen block exists in the top 3 rows.
 
 Added side movment and quickdrop. Movment is not registered if keypress happens to fast (less than framTime). But its good enough now so i save that one for the end.
+
+Cant get frame updates to work properly and input and animation looks and feels bad.
+Made a new branch because i realised timing is fundamentally messed up. I need to redo al lthe timing logic with "requestAnimationFrame()" instead.
 
 ## 2024-05-09
 
