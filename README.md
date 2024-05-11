@@ -21,3 +21,7 @@ The `gameBoard[][]` has its origo at top left (index: `[0][0]`). The `gameBoard[
 - Actual play area is 20x10 since:
   - Top 3 rows are the spawn area.
   - First and last column and the bottom row are the edges.
+
+# Known bugs
+
+- (Rendering) Background color shines through on some zoom levels.

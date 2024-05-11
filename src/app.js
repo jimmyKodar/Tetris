@@ -40,6 +40,9 @@ function noBlockInPlay() {
   }
   return true;
 }
+function isSpawnFieldEmpty() {
+  return true;
+}
 function spawnRandomBlock() {
   blockNr = 1 + Math.floor(Math.random() * 7);
 
@@ -71,7 +74,7 @@ function freezeBlocks() {
   }
 }
 function moveBlocksDown() {
-  // OBS loopar "baklänges" för att inte skriva över
+  // loop backwards so next row is not over written
   for (let i = gameBoard.length - 2; i >= 0; i--) {
     for (let j = 1; j < gameBoard[0].length - 1; j++) {
       if (gameBoard[i][j] === 1) {
@@ -81,7 +84,7 @@ function moveBlocksDown() {
     }
   }
 }
-function moveBlocksSideways() {}
+
 /////////////////////////////////////////////////////////////////////////////
 // DEBUG
 function addFullRow(rowNr) {
@@ -92,7 +95,7 @@ function addFullRow(rowNr) {
 /////////////////////////////////////////////////////////////////////////////
 // GRAPHICS
 const gameBoardDiv = document.querySelector(".gameBoard");
-gameBoardDiv.style.backgroundColor = "magenta";
+gameBoardDiv.style.backgroundColor = "magenta"; // easier to spot if BG shows between blocks
 
 function setupGameBoard() {
   for (let i = 0; i < gameBoard[i].length; i++) {
@@ -162,9 +165,10 @@ const gameBoard = [
 ];
 createPixels();
 setupGameBoard();
+let nrOfRenderedFrames = 0;
 
 let gameTimeIntervalID;
-let frameTime = 25;
+let frameTime = 200;
 /////////////////////////////////////////////////////////////////////////////
 // CONTROLS
 document.querySelector("#startButton").addEventListener("click", startGame);
@@ -174,6 +178,8 @@ document.addEventListener("keyup", keyPressUp);
 
 let moveLeft = false;
 let moveRight = false;
+// sets to nrOfRenderedFrames when a key is pressed to register intra-frame input
+let currentFrame = 0;
 
 function keyPressDown(key) {
   if (key.key == "ArrowLeft") {
@@ -184,23 +190,59 @@ function keyPressDown(key) {
     moveLeft = false;
     moveRight = true;
   }
-  if (key.key == "ArrowDown") {
-    frameTime = 50;
+  if (key.key == "ArrowDown" && frameTime > 50) {
+    frameTime = 25;
     pauseGame();
     startGame();
   }
 }
 function keyPressUp(key) {
+  if (key.key == "ArrowRight" && currentFrame !== nrOfRenderedFrames) {
+    moveRight = false;
+  }
+  if (key.key == "ArrowLeft") {
+    moveLeft = false;
+  }
   if (key.key == "ArrowDown") {
     frameTime = 200;
     pauseGame();
     startGame();
   }
 }
+
+function moveBlocksSideways() {
+  if (moveRight) {
+    // Loop backwards so that gameBoard can be any length
+    for (let i = gameBoard.length - 1; i >= 0; i--) {
+      // loop <-- RIGHT to LEFT  to not write over blocks
+      for (let j = gameBoard[0].length - 2; j >= 1; j--) {
+        if (gameBoard[i][j] === 1 && gameBoard[i][j + 1] === 0) {
+          gameBoard[i][j] = 0;
+          gameBoard[i][j + 1] = 1;
+        }
+      }
+    }
+  }
+  if (moveLeft) {
+    // Loop backwards so that gameBoard can be any length
+    for (let i = gameBoard.length - 1; i >= 0; i--) {
+      // loop --> LEFT to RIGHT to not write over blocks
+      for (let j = 1; j <= 10; j++) {
+        if (gameBoard[i][j] === 1 && gameBoard[i][j - 1] === 0) {
+          gameBoard[i][j] = 0;
+          gameBoard[i][j - 1] = 1;
+        }
+      }
+    }
+  }
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // GAME LOOP
 function gameLoop() {
-  moveBlocksSideways();
+  if (isSpawnFieldEmpty()) {
+    moveBlocksSideways();
+  }
   moveBlocksDown();
 
   if (noBlockInPlay()) {
@@ -218,4 +260,5 @@ function gameLoop() {
   }
 
   render();
+  nrOfRenderedFrames += 1;
 }
