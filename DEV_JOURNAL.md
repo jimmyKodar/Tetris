@@ -25,6 +25,8 @@ Added side movment and quickdrop. Movment is not registered if keypress happens 
 Cant get frame updates to work properly and input and animation looks and feels bad.
 Made a new branch because i realised timing is fundamentally messed up. I need to redo al lthe timing logic with "requestAnimationFrame()" instead.
 
+PUshed the branch changes to main since time works. Game logic needs to be fixed now.
+
 ## 2024-05-09
 
 First attempt turned into incomprehensibility since everything happend in a single nested loop over the gameBoard array.
