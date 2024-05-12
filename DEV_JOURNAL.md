@@ -22,7 +22,7 @@
 * **10:35** - Trying to move sideways movement logic to `keyDown()` from `gameLoop()`.
 * **10:42** - **FINISHED** and everythings works. **Commiting changes.**
 
-* **10:47** - starting work on the collision detection for side movment, trying to fix the corner to corner intersection bug.
+* **10:55** - starting work on the collision detection for side movment, trying to fix the corner to corner intersection bug.
 
 ## 2024-05-11
 
