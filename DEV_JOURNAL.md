@@ -1,6 +1,5 @@
 ## Whats next?
 
-- FOUND A BUG in side collision: you cant move sideways when bottom L/R is populated with a frozen block. I think i must move the diagonal collision check to the move down functions. Since it is only applicable when the block actually moves down.
 - Add block rotation
 - remove full rows
 - start pause reset buttons
@@ -37,6 +36,8 @@
 * **12:01** - Everything with side collision seems to work now. `MAJOR LESSON LEARNED:` ALl along i have been thinking correctly about how to check collisions. But the reason it dint work is that i tried to do too much in each function. Now its super simple when I split up the checks in single functions and inside the functions i do a single if check per thing i want to check. Taking a break now, next up is block rotation. EDIT: found a bug i must fix before adding rotation: see top. Now i take a break.
 
 * **14:29** - Starting to fix the minor bug mentioned above.
+
+* **14:39** - Bug fixed. Moved order in gameLoop so that sidways move always happens before move down. Blocks behave as they are supposed to now. Could also remove diagonal collision checks inside collideLeft/Right functions.
 
 ## 2024-05-11
 
