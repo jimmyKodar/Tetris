@@ -24,6 +24,13 @@
 
 * **10:55** - starting work on the collision detection for side movment, trying to fix the corner to corner intersection bug.
 
+* **11:10** - Got side tracked a bit and fixed a bunch of small stuff.
+
+  - side movment is not possible on the first 3 rows
+  - spawn area is hidden by painting them gray.
+
+  Now getting back to the collision stuff.
+
 ## 2024-05-11
 
 Started a github account and added this project.

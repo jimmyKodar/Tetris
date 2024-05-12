@@ -20,6 +20,11 @@ function isNoBlockInPlay() {
   return true;
 }
 function isSpawnFieldEmpty() {
+  for (i = 1; i < gameBoard[0].length - 1; i++) {
+    if (gameBoard[0][i] === 1 || gameBoard[1][i] === 1 || gameBoard[2][i] === 1) {
+      return false;
+    }
+  }
   return true;
 }
 function spawnRandomBlock() {
@@ -75,7 +80,6 @@ function moveLeft() {
     }
   }
 }
-
 function moveRight() {
   // Loop backwards so that gameBoard can be any length
   for (let i = gameBoard.length - 1; i >= 0; i--) {
@@ -101,6 +105,9 @@ function render() {
       }
       if (gameBoard[i][j] === -1) {
         document.getElementById(`${j},${i}`).style.backgroundColor = "red";
+      }
+      if (i <= 2) {
+        document.getElementById(`${j},${i}`).style.backgroundColor = "gray";
       }
     }
   }
@@ -218,13 +225,13 @@ function createPixels() {
 function setGameBoard() {
   for (let i = 0; i < gameBoard[i].length; i++) {
     gameBoard[gameBoard.length - 1][i] = -1;
-    document.getElementById(`${i},${gameBoard.length - 1}`).style.backgroundColor = "#c00000";
+    document.getElementById(`${i},${gameBoard.length - 1}`).style.backgroundColor = "red";
   }
   for (let i = 0; i < gameBoard.length; i++) {
-    gameBoard[i][0] = 1;
-    gameBoard[i][gameBoard[0].length - 1] = 1;
-    document.getElementById(`${0},${i}`).style.backgroundColor = "black";
-    document.getElementById(`${gameBoard[0].length - 1},${i}`).style.backgroundColor = "black";
+    gameBoard[i][0] = -1;
+    gameBoard[i][gameBoard[0].length - 1] = -1;
+    document.getElementById(`${0},${i}`).style.backgroundColor = "red";
+    document.getElementById(`${gameBoard[0].length - 1},${i}`).style.backgroundColor = "red";
   }
 }
 createPixels();

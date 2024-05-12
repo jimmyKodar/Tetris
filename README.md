@@ -18,7 +18,7 @@ The `gameBoard[][]` has its origo at top left (index: `[0][0]`). The `gameBoard[
 - "0" = empty.
 - "-1" = edge or frozen blocks.
 - "1" = live blocks that are in motion.
-- Actual play area is 20x10 since:
+- Play area is 20x10 since:
   - Top 3 rows are the spawn area.
   - First and last column and the bottom row are the edges.
 
