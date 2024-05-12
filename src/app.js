@@ -46,12 +46,10 @@ function freezeBlocks() {
     }
   }
 }
-const blockO = [
-  [1, 1],
-  [1, 1],
-];
-function rotateBlock2() {
+
+function rotateTblockClockwise() {
   // Block 2 = T-block
+  // position 1 -> 2. ( 0 -> 90)
   for (let row = 1; row < gameBoard[0].length - 1; row++) {
     for (let column = 0; column < gameBoard.length - 1; column++) {
       if (gameBoard[column][row] === 1) {
@@ -62,27 +60,6 @@ function rotateBlock2() {
     }
   }
 }
-
-const blockT0 = [
-  [0, 1, 0],
-  [1, 1, 1],
-  [0, 0, 0],
-];
-const blockT90 = [
-  [0, 1, 0],
-  [0, 1, 1],
-  [0, 1, 0],
-];
-const blockT180 = [
-  [0, 0, 0],
-  [1, 1, 1],
-  [0, 1, 0],
-];
-const blockT270 = [
-  [0, 1, 0],
-  [1, 1, 0],
-  [0, 1, 0],
-];
 
 function spawnRandomBlock() {
   blockNr = 2;
@@ -235,7 +212,7 @@ function keyDown(key) {
   }
   if (key.key == "ArrowUp") {
     if (isSpawnFieldEmpty()) {
-      rotateBlock2();
+      rotateTblockClockwise();
     }
   }
   if (key.key == "ArrowDown") {
