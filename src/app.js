@@ -57,7 +57,7 @@ function freezeBlocks() {
     }
   }
 }
-function moveBlocksDown() {
+function moveDown() {
   // loop backwards so next row is not over written
   for (let i = gameBoard.length - 2; i >= 0; i--) {
     for (let j = 1; j < gameBoard[0].length - 1; j++) {
@@ -99,10 +99,6 @@ function collideLeft() {
       if (gameBoard[i][j] === 1 && gameBoard[i][j - 1] === -1) {
         return true;
       }
-      // checking left + down
-      if (gameBoard[i][j] === 1 && gameBoard[i + 1][j - 1] === -1) {
-        return true;
-      }
     }
   }
   return false;
@@ -113,10 +109,6 @@ function collideRight() {
     for (let j = gameBoard[0].length - 2; j >= 1; j--) {
       // checking RIGHT
       if (gameBoard[i][j] === 1 && gameBoard[i][j + 1] === -1) {
-        return true;
-      }
-      // checking RIGHT + DOWN
-      if (gameBoard[i][j] === 1 && gameBoard[i + 1][j + 1] === -1) {
         return true;
       }
     }
@@ -148,16 +140,17 @@ function render() {
 function gameLoop() {
   // Only update game logic if enough time have passed
   if (performance.now() - PrevUpdateTime >= frameTime) {
-    moveBlocksDown();
+    if (blockCollidedDownward()) {
+      freezeBlocks();
+    } else {
+      moveDown();
+    }
 
     if (isNoBlockInPlay()) {
       console.log("Spawning new block");
       spawnRandomBlock();
     }
 
-    if (blockCollidedDownward()) {
-      freezeBlocks();
-    }
     PrevUpdateTime = performance.now();
   }
 

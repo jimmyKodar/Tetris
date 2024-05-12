@@ -34,7 +34,9 @@
 
   * **11:45** - Move partially complete. Sideways collision is now in two collidLeft/Right functions. The bug where it would eat up edges when "sliding" over corners is gone. But the main big of intersecting corners remain.
 
-* **12:01** - Everything with side collision seems to work now. `MAJOR LESSON LEARNED:` ALl along i have been thinking correctly about how to check collisions. But the reason it dint work is that i tried to do too much in each function. Now its super simple when I split up the checks in single functions and inside the functions i do a single if check per thing i want to check. Taking a break now, next up is block rotation. EDIT: found a bug i must fix before adding rotation: see top. No i take a break.
+* **12:01** - Everything with side collision seems to work now. `MAJOR LESSON LEARNED:` ALl along i have been thinking correctly about how to check collisions. But the reason it dint work is that i tried to do too much in each function. Now its super simple when I split up the checks in single functions and inside the functions i do a single if check per thing i want to check. Taking a break now, next up is block rotation. EDIT: found a bug i must fix before adding rotation: see top. Now i take a break.
+
+* **14:29** - Starting to fix the minor bug mentioned above.
 
 ## 2024-05-11
 
@@ -47,7 +49,7 @@ Added side movment and quickdrop. Movment is not registered if keypress happens 
 Cant get frame updates to work properly and input and animation looks and feels bad.
 Made a new branch because i realised timing is fundamentally messed up. I need to redo al lthe timing logic with "requestAnimationFrame()" instead.
 
-PUshed the branch changes to main since time works. Game logic needs to be fixed now.
+Pushed the branch changes to main since time works. Game logic needs to be fixed now.
 
 ## 2024-05-09
 
