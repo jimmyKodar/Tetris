@@ -63,28 +63,27 @@ function moveBlocksDown() {
     }
   }
 }
-function moveBlocksSideways() {
-  if (false) {
-    // Loop backwards so that gameBoard can be any length
-    for (let i = gameBoard.length - 1; i >= 0; i--) {
-      // loop <-- RIGHT to LEFT  to not write over blocks
-      for (let j = gameBoard[0].length - 2; j >= 1; j--) {
-        if (gameBoard[i][j] === 1 && gameBoard[i][j + 1] === 0) {
-          gameBoard[i][j] = 0;
-          gameBoard[i][j + 1] = 1;
-        }
+function moveLeft() {
+  // Loop backwards so that gameBoard can be any length
+  for (let i = gameBoard.length - 1; i >= 0; i--) {
+    // loop --> LEFT to RIGHT to not write over blocks
+    for (let j = 1; j <= 10; j++) {
+      if (gameBoard[i][j] === 1 && gameBoard[i][j - 1] === 0) {
+        gameBoard[i][j] = 0;
+        gameBoard[i][j - 1] = 1;
       }
     }
   }
-  if (false) {
-    // Loop backwards so that gameBoard can be any length
-    for (let i = gameBoard.length - 1; i >= 0; i--) {
-      // loop --> LEFT to RIGHT to not write over blocks
-      for (let j = 1; j <= 10; j++) {
-        if (gameBoard[i][j] === 1 && gameBoard[i][j - 1] === 0) {
-          gameBoard[i][j] = 0;
-          gameBoard[i][j - 1] = 1;
-        }
+}
+
+function moveRight() {
+  // Loop backwards so that gameBoard can be any length
+  for (let i = gameBoard.length - 1; i >= 0; i--) {
+    // loop <-- RIGHT to LEFT  to not write over blocks
+    for (let j = gameBoard[0].length - 2; j >= 1; j--) {
+      if (gameBoard[i][j] === 1 && gameBoard[i][j + 1] === 0) {
+        gameBoard[i][j] = 0;
+        gameBoard[i][j + 1] = 1;
       }
     }
   }
@@ -110,7 +109,7 @@ function render() {
 // GAME LOOP
 function gameLoop() {
   // Only update game logic if enough time have passed
-  if (performance.now() - PrevUpdateTime > frameTime) {
+  if (performance.now() - PrevUpdateTime >= frameTime) {
     if (isSpawnFieldEmpty()) {
       moveBlocksSideways();
     }
@@ -134,8 +133,9 @@ function gameLoop() {
 }
 /////////////////////////////////////////////////////////////////////////////
 // TIME
-let FPS = 5;
-let frameTime = 1000 / FPS;
+const defaultFPS = 5;
+const quickDropFPS = 60;
+let frameTime = 1000 / defaultFPS;
 let PrevUpdateTime = performance.now();
 let animationFrameRequestID;
 let pauseGame = true;
@@ -147,7 +147,21 @@ function setFPS(reqestedFPS) {
 // CONTROLS
 document.addEventListener("keydown", keyDown);
 document.addEventListener("keyup", keyUp);
+
 function keyDown(key) {
+  if (key.key == "ArrowLeft") {
+    if (isSpawnFieldEmpty()) {
+      moveLeft();
+    }
+  }
+  if (key.key == "ArrowRight") {
+    if (isSpawnFieldEmpty()) {
+      moveRight();
+    }
+  }
+  if (key.key == "ArrowDown") {
+    setFPS(quickDropFPS);
+  }
   if (key.key == " ") {
     if (!pauseGame) {
       pauseGame = true;
@@ -158,17 +172,10 @@ function keyDown(key) {
       animationFrameRequestID = requestAnimationFrame(gameLoop);
     }
   }
-  if (key.key == "ArrowLeft") {
-  }
-  if (key.key == "ArrowRight") {
-  }
-  if (key.key == "ArrowDown") {
-    setFPS(60);
-  }
 }
 function keyUp(key) {
   if (key.key == "ArrowDown") {
-    setFPS(5);
+    setFPS(defaultFPS);
   }
 }
 /////////////////////////////////////////////////////////////////////////////

@@ -1,7 +1,6 @@
 ## Whats next?
 
-- GREAT TIME PROBLEM: Made a new branch because i realised timing is fundamentally messed up. I need to redo al lthe timing logic with "requestAnimationFrame()" instead. THIS IS NOW DONE.
-- SIDEMOVMENT:
+- SIDEMOVMENT: CHECK IF THIS IS STILL TRUE
   - if you move sidways you can intersect with frozen blocks if the collision is corner vs corner.
 - Add block rotation
 - remove full rows
@@ -10,9 +9,17 @@
 - save score to file
 - check that all loops work for arbitrary game board sizes. But not important.
 - When finished: Good follow-up project would be to add more rendering options
+
   - ASCII
   - HTML5 canvas
   - webGL / webGPU
+
+## 2024-05-12
+
+- **10:15** - Starting to fix / add movment now with the new deltaTime system.
+
+* **10:35** - Trying to move sideways movement logic to `keyDown()` from `gameLoop()`.
+* **10:42** - **FINISHED** and everythings works. **Commiting changes.**
 
 ## 2024-05-11
 

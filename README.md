@@ -22,7 +22,15 @@ The `gameBoard[][]` has its origo at top left (index: `[0][0]`). The `gameBoard[
   - Top 3 rows are the spawn area.
   - First and last column and the bottom row are the edges.
 
-# Known bugs
+# Key bindings
 
-- (Rendering) Background color shines through on some zoom levels.
-- (input) Side movment does not register if keyDown and keyUp events happen between frames. (sub 200ms). And if a make my own toggle that i reset each frame a lag is introduced the following frame. Probably because the game loop is inside of a setInterval() function.
+- Arrow down = quick drop
+- Arrow left/right = move to the side
+- Space = start / pause
+
+# Known issues / bugs
+
+- _(game logic, time)_ game can not go faster than screen Hz because of `requestAnimationFrame()`. Not really a "bug" but something to be aware of.
+- _(game logic, time)_ Game does not update while in the background. Also because of how `requestAnimationFrame()` works.
+- _(Rendering)_ Background color shines through on some zoom levels.
+- _(input)_ Side movment does not register if keyDown and keyUp events happen between frames. (sub 200ms). And if a make my own toggle that i reset each frame a lag is introduced the following frame. Probably because the game loop is inside of a setInterval() function.
