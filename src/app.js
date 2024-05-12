@@ -110,9 +110,6 @@ function render() {
 function gameLoop() {
   // Only update game logic if enough time have passed
   if (performance.now() - PrevUpdateTime >= frameTime) {
-    if (isSpawnFieldEmpty()) {
-      moveBlocksSideways();
-    }
     moveBlocksDown();
 
     if (isNoBlockInPlay()) {

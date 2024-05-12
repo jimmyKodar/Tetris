@@ -1,7 +1,8 @@
 ## Whats next?
 
-- SIDEMOVMENT: CHECK IF THIS IS STILL TRUE
+- SIDEMOVMENT COLLISION STILL BROKEN:
   - if you move sidways you can intersect with frozen blocks if the collision is corner vs corner.
+- Side movment: Minor issue, holding down the keys has a lag to is, the browser has a delay before it triggers repeat on a held down key. a toggle would feel nicer.
 - Add block rotation
 - remove full rows
 - start pause reset buttons
@@ -20,6 +21,8 @@
 
 * **10:35** - Trying to move sideways movement logic to `keyDown()` from `gameLoop()`.
 * **10:42** - **FINISHED** and everythings works. **Commiting changes.**
+
+* **10:47** - starting work on the collision detection for side movment, trying to fix the corner to corner intersection bug.
 
 ## 2024-05-11
 
