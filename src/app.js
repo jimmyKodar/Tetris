@@ -38,7 +38,7 @@ function spawnRandomBlock() {
     gameBoard[1][6] = 1;
   }
 }
-function blockCollided() {
+function blockCollidedDownward() {
   for (let i = 0; i < gameBoard.length - 1; i++) {
     for (let j = 1; j < gameBoard[0].length - 1; j++) {
       if (gameBoard[i][j] === 1 && gameBoard[i + 1][j] === -1) {
@@ -73,7 +73,7 @@ function moveLeft() {
   for (let i = gameBoard.length - 1; i >= 0; i--) {
     // loop --> LEFT to RIGHT to not write over blocks
     for (let j = 1; j <= 10; j++) {
-      if (gameBoard[i][j] === 1 && gameBoard[i][j - 1] === 0) {
+      if (gameBoard[i][j] === 1) {
         gameBoard[i][j] = 0;
         gameBoard[i][j - 1] = 1;
       }
@@ -85,12 +85,35 @@ function moveRight() {
   for (let i = gameBoard.length - 1; i >= 0; i--) {
     // loop <-- RIGHT to LEFT  to not write over blocks
     for (let j = gameBoard[0].length - 2; j >= 1; j--) {
-      if (gameBoard[i][j] === 1 && gameBoard[i][j + 1] === 0) {
+      if (gameBoard[i][j] === 1) {
         gameBoard[i][j] = 0;
         gameBoard[i][j + 1] = 1;
       }
     }
   }
+}
+function collideLeft() {
+  for (let i = gameBoard.length - 2; i >= 0; i--) {
+    for (let j = 0; j <= gameBoard[0].length - 2; j++) {
+      if (gameBoard[i][j] === 1 && gameBoard[i][j - 1] === -1) {
+        console.log(`CELL: ${i}, ${j} COLLIDES WITH: ${i}, ${j - 1}`);
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function collideRight() {
+  for (let i = gameBoard.length - 2; i >= 0; i--) {
+    for (let j = gameBoard[0].length - 2; j >= 1; j--) {
+      if (gameBoard[i][j] === 1 && gameBoard[i][j + 1] === -1) {
+        console.log(`CELL: ${i}, ${j} COLLIDES WITH: ${i}, ${j + 1}`);
+        return true;
+      }
+    }
+  }
+  return false;
 }
 /////////////////////////////////////////////////////////////////////////////
 // GRAPHICS
@@ -124,7 +147,7 @@ function gameLoop() {
       spawnRandomBlock();
     }
 
-    if (blockCollided()) {
+    if (blockCollidedDownward()) {
       freezeBlocks();
     }
     PrevUpdateTime = performance.now();
@@ -154,12 +177,12 @@ document.addEventListener("keyup", keyUp);
 
 function keyDown(key) {
   if (key.key == "ArrowLeft") {
-    if (isSpawnFieldEmpty()) {
+    if (isSpawnFieldEmpty() && !collideLeft()) {
       moveLeft();
     }
   }
   if (key.key == "ArrowRight") {
-    if (isSpawnFieldEmpty()) {
+    if (isSpawnFieldEmpty() && !collideRight()) {
       moveRight();
     }
   }
@@ -236,4 +259,5 @@ function setGameBoard() {
 }
 createPixels();
 setGameBoard();
+// setGameBoardToPatternT();
 animationFrameRequestID = requestAnimationFrame(gameLoop);

@@ -31,6 +31,10 @@
 
   Now getting back to the collision stuff.
 
+  - **11:29** - removeds side collision checks form moveLeft/right functions. Will put them in separete check functions.
+
+  * **11:45** - Move partially complete. Sideways collision is now in two collidLeft/Right functions. The bug where it would eat up edges when "sliding" over corners is gone. But the main big of intersecting corners remain.
+
 ## 2024-05-11
 
 Started a github account and added this project.
