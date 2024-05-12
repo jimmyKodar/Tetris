@@ -1,14 +1,12 @@
 ## Whats next?
 
-- SIDEMOVMENT COLLISION STILL BROKEN:
-  - if you move sidways you can intersect with frozen blocks if the collision is corner vs corner.
-- Side movment: Minor issue, holding down the keys has a lag to is, the browser has a delay before it triggers repeat on a held down key. a toggle would feel nicer.
 - Add block rotation
 - remove full rows
 - start pause reset buttons
 - score counter
 - save score to file
 - check that all loops work for arbitrary game board sizes. But not important.
+- Side movment: Minor issue, holding down the keys has a lag to is, the browser has a delay before it triggers repeat on a held down key. a toggle would feel nicer.
 - When finished: Good follow-up project would be to add more rendering options
 
   - ASCII
@@ -34,6 +32,8 @@
   - **11:29** - removeds side collision checks form moveLeft/right functions. Will put them in separete check functions.
 
   * **11:45** - Move partially complete. Sideways collision is now in two collidLeft/Right functions. The bug where it would eat up edges when "sliding" over corners is gone. But the main big of intersecting corners remain.
+
+* **11:53** - Everything with side collision seems to work now. `MAJOR LESSON LEARNED:` ALl along i have been thinking correctly about how to check collisions. But the reason it dint work is that i tried to do too much in each function. Now its super simple when I split up the checks in single functions and inside the functions i do a single if check per thing i want to check. Taking a break now, next up is block rotation.
 
 ## 2024-05-11
 

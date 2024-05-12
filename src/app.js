@@ -95,8 +95,12 @@ function moveRight() {
 function collideLeft() {
   for (let i = gameBoard.length - 2; i >= 0; i--) {
     for (let j = 0; j <= gameBoard[0].length - 2; j++) {
+      // checking left
       if (gameBoard[i][j] === 1 && gameBoard[i][j - 1] === -1) {
-        console.log(`CELL: ${i}, ${j} COLLIDES WITH: ${i}, ${j - 1}`);
+        return true;
+      }
+      // checking left + down
+      if (gameBoard[i][j] === 1 && gameBoard[i + 1][j - 1] === -1) {
         return true;
       }
     }
@@ -107,8 +111,12 @@ function collideLeft() {
 function collideRight() {
   for (let i = gameBoard.length - 2; i >= 0; i--) {
     for (let j = gameBoard[0].length - 2; j >= 1; j--) {
+      // checking RIGHT
       if (gameBoard[i][j] === 1 && gameBoard[i][j + 1] === -1) {
-        console.log(`CELL: ${i}, ${j} COLLIDES WITH: ${i}, ${j + 1}`);
+        return true;
+      }
+      // checking RIGHT + DOWN
+      if (gameBoard[i][j] === 1 && gameBoard[i + 1][j + 1] === -1) {
         return true;
       }
     }
