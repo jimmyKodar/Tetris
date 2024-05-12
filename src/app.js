@@ -27,17 +27,6 @@ function isSpawnFieldEmpty() {
   }
   return true;
 }
-function spawnRandomBlock() {
-  blockNr = 1 + Math.floor(Math.random() * 7);
-
-  // spawn O-block (square)
-  if (true) {
-    gameBoard[0][5] = 1;
-    gameBoard[0][6] = 1;
-    gameBoard[1][5] = 1;
-    gameBoard[1][6] = 1;
-  }
-}
 function blockCollidedDownward() {
   for (let i = 0; i < gameBoard.length - 1; i++) {
     for (let j = 1; j < gameBoard[0].length - 1; j++) {
@@ -55,6 +44,64 @@ function freezeBlocks() {
         gameBoard[i][j] = -1;
       }
     }
+  }
+}
+const blockO = [
+  [1, 1],
+  [1, 1],
+];
+function rotateBlock2() {
+  // Block 2 = T-block
+  for (let row = 1; row < gameBoard[0].length - 1; row++) {
+    for (let column = 0; column < gameBoard.length - 1; column++) {
+      if (gameBoard[column][row] === 1) {
+        gameBoard[column][row] = 0;
+        gameBoard[column + 1][row + 1] = 1;
+        return;
+      }
+    }
+  }
+}
+
+const blockT0 = [
+  [0, 1, 0],
+  [1, 1, 1],
+  [0, 0, 0],
+];
+const blockT90 = [
+  [0, 1, 0],
+  [0, 1, 1],
+  [0, 1, 0],
+];
+const blockT180 = [
+  [0, 0, 0],
+  [1, 1, 1],
+  [0, 1, 0],
+];
+const blockT270 = [
+  [0, 1, 0],
+  [1, 1, 0],
+  [0, 1, 0],
+];
+
+function spawnRandomBlock() {
+  blockNr = 2;
+  // blockNr = 1 + Math.floor(Math.random() * 7);
+  nextBlockNr = 1 + Math.floor(Math.random() * 7);
+
+  // spawn O-block
+  if (blockNr == 1) {
+    gameBoard[0][5] = 1;
+    gameBoard[0][6] = 1;
+    gameBoard[1][5] = 1;
+    gameBoard[1][6] = 1;
+  }
+  // spawn T-block
+  if (blockNr == 2) {
+    gameBoard[0][5] = 1;
+    gameBoard[1][5] = 1;
+    gameBoard[1][4] = 1;
+    gameBoard[1][6] = 1;
   }
 }
 function moveDown() {
@@ -103,7 +150,6 @@ function collideLeft() {
   }
   return false;
 }
-
 function collideRight() {
   for (let i = gameBoard.length - 2; i >= 0; i--) {
     for (let j = gameBoard[0].length - 2; j >= 1; j--) {
@@ -187,6 +233,11 @@ function keyDown(key) {
       moveRight();
     }
   }
+  if (key.key == "ArrowUp") {
+    if (isSpawnFieldEmpty()) {
+      rotateBlock2();
+    }
+  }
   if (key.key == "ArrowDown") {
     setFPS(quickDropFPS);
   }
@@ -235,6 +286,9 @@ const gameBoard = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
 let gameBoardDiv = document.querySelector(".gameBoard");
+
+let blockNr, nextBlockNr;
+
 function createPixels() {
   for (let i = gameBoard.length - 1; i >= 0; i--) {
     for (let j = gameBoard[0].length - 1; j >= 0; j--) {

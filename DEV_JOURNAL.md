@@ -6,7 +6,7 @@
 - score counter
 - save score to file
 - check that all loops work for arbitrary game board sizes. But not important.
-- Side movment: Minor issue, holding down the keys has a lag to is, the browser has a delay before it triggers repeat on a held down key. a toggle would feel nicer.
+- Side movment: Minor issue, holding down the keys has a lag to it, the browser has a delay before it triggers repeat on a held down key. a toggle would feel nicer.
 - When finished: Good follow-up project would be to add more rendering options
 
   - ASCII
@@ -38,6 +38,10 @@
 * **14:29** - Starting to fix the minor bug mentioned above.
 
 * **14:39** - Bug fixed. Moved order in gameLoop so that sidways move always happens before move down. Blocks behave as they are supposed to now. Could also remove diagonal collision checks inside collideLeft/Right functions.
+* **14:41** - starting on block rotation.
+* **15:20** - tar paus
+
+* **16:22** - Forgot to logg when i started working again, but i figured out the rotations, just loop and move the blocks around. Did the first T-block rotation and it works. Im not checking if the cells are empty tho. Thats next, but now its naptime.
 
 ## 2024-05-11
 
