@@ -47,15 +47,31 @@ function freezeBlocks() {
   }
 }
 
-function rotateTblockClockwise() {
+function rotateBlockClockwise() {
   // Block 2 = T-block
-  // position 1 -> 2. ( 0 -> 90)
-  for (let row = 1; row < gameBoard[0].length - 1; row++) {
-    for (let column = 0; column < gameBoard.length - 1; column++) {
-      if (gameBoard[column][row] === 1) {
-        gameBoard[column][row] = 0;
-        gameBoard[column + 1][row + 1] = 1;
-        return;
+  if (blockNr == 2) {
+    if (rotationState == 1) {
+      for (let row = 1; row < gameBoard[0].length - 1; row++) {
+        for (let column = 0; column < gameBoard.length - 1; column++) {
+          if (gameBoard[column][row] === 1 && gameBoard[column + 1][row + 1] == 0) {
+            gameBoard[column][row] = 0;
+            gameBoard[column + 1][row + 1] = 1;
+            rotationState = 2;
+            return;
+          }
+        }
+      }
+    }
+    if (blockNr == 2 && rotationState == 2) {
+      for (let column = 0; column < gameBoard.length - 1; column++) {
+        for (let row = 1; row < gameBoard[0].length - 1; row++) {
+          if (gameBoard[column][row] === 1 && gameBoard[column + 1][row - 1] == 0) {
+            gameBoard[column][row] = 0;
+            gameBoard[column + 1][row - 1] = 1;
+            rotationState = 1;
+            return;
+          }
+        }
       }
     }
   }
@@ -212,7 +228,7 @@ function keyDown(key) {
   }
   if (key.key == "ArrowUp") {
     if (isSpawnFieldEmpty()) {
-      rotateTblockClockwise();
+      rotateBlockClockwise();
     }
   }
   if (key.key == "ArrowDown") {
@@ -264,7 +280,9 @@ const gameBoard = [
 ];
 let gameBoardDiv = document.querySelector(".gameBoard");
 
+// rotation state är en int från 1->4 som håller koll på blocken snurr.
 let blockNr, nextBlockNr;
+rotationState = 1;
 
 function createPixels() {
   for (let i = gameBoard.length - 1; i >= 0; i--) {

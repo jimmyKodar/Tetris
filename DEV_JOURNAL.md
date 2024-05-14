@@ -13,6 +13,12 @@
   - HTML5 canvas
   - webGL / webGPU
 
+## 2024-05-14
+
+- **22:26** - Got some time over so will add atleast one more rotation to the T-block
+
+* **22:40** - Boom, done. Also added checks for rotation so that there must be space for rotation to occur.
+
 ## 2024-05-12
 
 - **10:15** - Starting to fix / add movment now with the new deltaTime system.
