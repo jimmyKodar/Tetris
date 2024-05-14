@@ -68,7 +68,7 @@ function rotateBlockClockwise() {
           if (gameBoard[column][row] === 1 && gameBoard[column + 1][row - 1] == 0) {
             gameBoard[column][row] = 0;
             gameBoard[column + 1][row - 1] = 1;
-            rotationState = 1;
+            rotationState = 3;
             return;
           }
         }
