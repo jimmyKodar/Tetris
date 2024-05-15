@@ -13,6 +13,11 @@
   - HTML5 canvas
   - webGL / webGPU
 
+## 2024-05-15
+
+- **10:00** - Got sime time over so continuing on T-block rotation.
+- **10:34** - FInished rotation for the T-block but there is a bug when the block freezes. Sometimes it erases frozen blocks.
+
 ## 2024-05-14
 
 - **22:26** - Got some time over so will add atleast one more rotation to the T-block

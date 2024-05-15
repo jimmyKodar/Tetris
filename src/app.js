@@ -46,14 +46,13 @@ function freezeBlocks() {
     }
   }
 }
-
 function rotateBlockClockwise() {
   // Block 2 = T-block
   if (blockNr == 2) {
     if (rotationState == 1) {
       for (let row = 1; row < gameBoard[0].length - 1; row++) {
         for (let column = 0; column < gameBoard.length - 1; column++) {
-          if (gameBoard[column][row] === 1 && gameBoard[column + 1][row + 1] == 0) {
+          if (gameBoard[column][row] === 1 && gameBoard[column + 1][row + 1] === 0) {
             gameBoard[column][row] = 0;
             gameBoard[column + 1][row + 1] = 1;
             rotationState = 2;
@@ -62,10 +61,10 @@ function rotateBlockClockwise() {
         }
       }
     }
-    if (blockNr == 2 && rotationState == 2) {
+    if (rotationState == 2) {
       for (let column = 0; column < gameBoard.length - 1; column++) {
         for (let row = 1; row < gameBoard[0].length - 1; row++) {
-          if (gameBoard[column][row] === 1 && gameBoard[column + 1][row - 1] == 0) {
+          if (gameBoard[column][row] === 1 && gameBoard[column + 1][row - 1] === 0) {
             gameBoard[column][row] = 0;
             gameBoard[column + 1][row - 1] = 1;
             rotationState = 3;
@@ -74,9 +73,32 @@ function rotateBlockClockwise() {
         }
       }
     }
+    if (rotationState == 3) {
+      for (let row = gameBoard[0].length - 1; row >= 1; row--) {
+        for (let column = 0; column < gameBoard.length - 1; column++) {
+          if (gameBoard[column][row] === 1 && gameBoard[column - 1][row - 1] === 0) {
+            gameBoard[column][row] = 0;
+            gameBoard[column - 1][row - 1] = 1;
+            rotationState = 4;
+            return;
+          }
+        }
+      }
+    }
+    if (rotationState == 4) {
+      for (let row = gameBoard[0].length - 1; row >= 1; row--) {
+        for (let column = gameBoard.length - 1; column >= 0; column--) {
+          if (gameBoard[column][row] === 1 && gameBoard[column - 1][row + 1] === 0) {
+            gameBoard[column][row] = 0;
+            gameBoard[column - 1][row + 1] = 1;
+            rotationState = 1;
+            return;
+          }
+        }
+      }
+    }
   }
 }
-
 function spawnRandomBlock() {
   blockNr = 2;
   // blockNr = 1 + Math.floor(Math.random() * 7);
@@ -154,26 +176,53 @@ function collideRight() {
   }
   return false;
 }
-/////////////////////////////////////////////////////////////////////////////
-// GRAPHICS
-function render() {
-  for (let i = 0; i < gameBoard.length - 1; i++) {
-    for (let j = 1; j < gameBoard[0].length - 1; j++) {
-      if (gameBoard[i][j] === 1) {
-        document.getElementById(`${j},${i}`).style.backgroundColor = "black";
-      }
-      if (gameBoard[i][j] === 0) {
-        document.getElementById(`${j},${i}`).style.backgroundColor = "white";
-      }
-      if (gameBoard[i][j] === -1) {
-        document.getElementById(`${j},${i}`).style.backgroundColor = "red";
-      }
-      if (i <= 2) {
-        document.getElementById(`${j},${i}`).style.backgroundColor = "gray";
-      }
-    }
-  }
+function setFPS(reqestedFPS) {
+  return (frameTime = 1000 / reqestedFPS);
 }
+/////////////////////////////////////////////////////////////////////////////
+//////////////////////         GLOBALS         //////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+const gameBoard = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+];
+let gameBoardDiv = document.querySelector(".gameBoard");
+
+// time globals
+const defaultFPS = 5;
+const quickDropFPS = 60;
+let frameTime = 1000 / defaultFPS;
+let PrevUpdateTime = performance.now();
+let animationFrameRequestID;
+let pauseGame = true;
+// rotation globals: rotation state är en int från 1->4 som håller koll på blocken snurr. Nollställs varje freeze
+let blockNr, nextBlockNr;
+rotationState = 1;
+// keyboard globals
+document.addEventListener("keydown", keyDown);
+document.addEventListener("keyup", keyUp);
 /////////////////////////////////////////////////////////////////////////////
 // GAME LOOP
 function gameLoop() {
@@ -181,6 +230,7 @@ function gameLoop() {
   if (performance.now() - PrevUpdateTime >= frameTime) {
     if (blockCollidedDownward()) {
       freezeBlocks();
+      rotationState = 1;
     } else {
       moveDown();
     }
@@ -199,22 +249,7 @@ function gameLoop() {
   }
 }
 /////////////////////////////////////////////////////////////////////////////
-// TIME
-const defaultFPS = 5;
-const quickDropFPS = 60;
-let frameTime = 1000 / defaultFPS;
-let PrevUpdateTime = performance.now();
-let animationFrameRequestID;
-let pauseGame = true;
-
-function setFPS(reqestedFPS) {
-  return (frameTime = 1000 / reqestedFPS);
-}
-/////////////////////////////////////////////////////////////////////////////
 // CONTROLS
-document.addEventListener("keydown", keyDown);
-document.addEventListener("keyup", keyUp);
-
 function keyDown(key) {
   if (key.key == "ArrowLeft") {
     if (isSpawnFieldEmpty() && !collideLeft()) {
@@ -251,39 +286,25 @@ function keyUp(key) {
   }
 }
 /////////////////////////////////////////////////////////////////////////////
-// INITIALIZE GAME & START LOOP
-const gameBoard = [
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-];
-let gameBoardDiv = document.querySelector(".gameBoard");
-
-// rotation state är en int från 1->4 som håller koll på blocken snurr.
-let blockNr, nextBlockNr;
-rotationState = 1;
-
+// GRAPHICS
+function render() {
+  for (let i = 0; i < gameBoard.length - 1; i++) {
+    for (let j = 1; j < gameBoard[0].length - 1; j++) {
+      if (gameBoard[i][j] === 1) {
+        document.getElementById(`${j},${i}`).style.backgroundColor = "black";
+      }
+      if (gameBoard[i][j] === 0) {
+        document.getElementById(`${j},${i}`).style.backgroundColor = "white";
+      }
+      if (gameBoard[i][j] === -1) {
+        document.getElementById(`${j},${i}`).style.backgroundColor = "red";
+      }
+      if (i <= 2) {
+        document.getElementById(`${j},${i}`).style.backgroundColor = "gray";
+      }
+    }
+  }
+}
 function createPixels() {
   for (let i = gameBoard.length - 1; i >= 0; i--) {
     for (let j = gameBoard[0].length - 1; j >= 0; j--) {
@@ -307,7 +328,8 @@ function setGameBoard() {
     document.getElementById(`${gameBoard[0].length - 1},${i}`).style.backgroundColor = "red";
   }
 }
+/////////////////////////////////////////////////////////////////////////////
+// INITIALIZE GAME & START LOOP
 createPixels();
 setGameBoard();
-// setGameBoardToPatternT();
 animationFrameRequestID = requestAnimationFrame(gameLoop);
