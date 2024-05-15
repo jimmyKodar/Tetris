@@ -48,7 +48,7 @@ function freezeBlocks() {
 }
 function rotateBlockClockwise() {
   // Block 2 = T-block
-  if (blockNr == 2) {
+  if (blockNr == 2 && !blockCollidedDownward()) {
     if (rotationState == 1) {
       for (let row = 1; row < gameBoard[0].length - 1; row++) {
         for (let column = 0; column < gameBoard.length - 1; column++) {
@@ -100,9 +100,8 @@ function rotateBlockClockwise() {
   }
 }
 function spawnRandomBlock() {
-  blockNr = 2;
-  // blockNr = 1 + Math.floor(Math.random() * 7);
-  nextBlockNr = 1 + Math.floor(Math.random() * 7);
+  blockNr = 1 + Math.floor(Math.random() * 2);
+  nextBlockNr = 1 + Math.floor(Math.random() * 2);
 
   // spawn O-block
   if (blockNr == 1) {
@@ -211,7 +210,7 @@ const gameBoard = [
 let gameBoardDiv = document.querySelector(".gameBoard");
 
 // time globals
-const defaultFPS = 5;
+const defaultFPS = 3;
 const quickDropFPS = 60;
 let frameTime = 1000 / defaultFPS;
 let PrevUpdateTime = performance.now();
@@ -291,25 +290,26 @@ function render() {
   for (let i = 0; i < gameBoard.length - 1; i++) {
     for (let j = 1; j < gameBoard[0].length - 1; j++) {
       if (gameBoard[i][j] === 1) {
-        document.getElementById(`${j},${i}`).style.backgroundColor = "black";
+        document.getElementById(`${j},${i}`).classList.remove("backgroundBlock");
+        document.getElementById(`${j},${i}`).classList.add("liveBlock");
       }
       if (gameBoard[i][j] === 0) {
-        document.getElementById(`${j},${i}`).style.backgroundColor = "white";
+        document.getElementById(`${j},${i}`).classList.add("backgroundBlock");
       }
       if (gameBoard[i][j] === -1) {
-        document.getElementById(`${j},${i}`).style.backgroundColor = "red";
+        document.getElementById(`${j},${i}`).classList.add("frozenBlock");
       }
       if (i <= 2) {
-        document.getElementById(`${j},${i}`).style.backgroundColor = "gray";
+        document.getElementById(`${j},${i}`).classList.add("spawnAreaBlock");
       }
     }
   }
 }
-function createPixels() {
+function createBlocks() {
   for (let i = gameBoard.length - 1; i >= 0; i--) {
     for (let j = gameBoard[0].length - 1; j >= 0; j--) {
       tmpDiv = document.createElement("div");
-      tmpDiv.classList.add("pixel");
+      tmpDiv.classList.add("block");
       tmpDiv.id = `${j},${i}`;
       tmpDiv.style.transform = `translate(${j * 10}px,${i * 10}px)`;
       gameBoardDiv.appendChild(tmpDiv);
@@ -319,17 +319,18 @@ function createPixels() {
 function setGameBoard() {
   for (let i = 0; i < gameBoard[i].length; i++) {
     gameBoard[gameBoard.length - 1][i] = -1;
-    document.getElementById(`${i},${gameBoard.length - 1}`).style.backgroundColor = "red";
+    //document.getElementById(`${i},${gameBoard.length - 1}`).style.backgroundColor = "red";
+    document.getElementById(`${i},${gameBoard.length - 1}`).classList.add("bottomEdge");
   }
   for (let i = 0; i < gameBoard.length; i++) {
     gameBoard[i][0] = -1;
     gameBoard[i][gameBoard[0].length - 1] = -1;
-    document.getElementById(`${0},${i}`).style.backgroundColor = "red";
-    document.getElementById(`${gameBoard[0].length - 1},${i}`).style.backgroundColor = "red";
+    document.getElementById(`${0},${i}`).classList.add("sideEdge");
+    document.getElementById(`${gameBoard[0].length - 1},${i}`).classList.add("sideEdge");
   }
 }
 /////////////////////////////////////////////////////////////////////////////
 // INITIALIZE GAME & START LOOP
-createPixels();
+createBlocks();
 setGameBoard();
 animationFrameRequestID = requestAnimationFrame(gameLoop);

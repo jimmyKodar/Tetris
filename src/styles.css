@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(22, 22, 94);
+  background-color: black;
   margin: 0;
   padding: 0;
 }
@@ -8,23 +8,43 @@ body {
   position: relative;
   margin-top: 20px;
   margin-inline: auto;
-  background-color: rgb(69, 67, 67);
+  background-color: black;
   width: 120px;
   height: 240px;
 }
 
-.buttons {
-  margin-inline: auto;
-  width: 100px;
-}
-
-.pixel {
+.block {
   position: absolute;
   margin: 0;
   padding: 0;
+  border: 50%;
   box-sizing: border-box;
   display: inline-block;
-  background-color: white;
+  background-color: red;
   width: 10px;
   height: 10px;
+}
+.liveBlock {
+  background-color: white;
+  border-radius: 45%;
+  border: 1px solid black;
+}
+
+.backgroundBlock {
+  background-color: black;
+}
+
+.sideEdge,
+.bottomEdge {
+  background-color: black;
+}
+
+.frozenBlock {
+  background-color: white;
+  border-radius: 45%;
+  border: 1px solid black;
+}
+
+.spawnAreaBlock {
+  background-color: black;
 }
