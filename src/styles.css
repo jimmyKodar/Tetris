@@ -26,7 +26,7 @@ body {
 }
 .liveBlock {
   background-color: white;
-  border-radius: 45%;
+  border-radius: 20%;
   border: 1px solid black;
 }
 
@@ -41,7 +41,7 @@ body {
 
 .frozenBlock {
   background-color: white;
-  border-radius: 45%;
+  border-radius: 20%;
   border: 1px solid black;
 }
 

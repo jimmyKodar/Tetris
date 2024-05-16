@@ -13,6 +13,10 @@
   - HTML5 canvas
   - webGL / webGPU
 
+## 2024-05-16
+
+- **22:26** - Forgot to note start time but spent perhaps 40minutes implementing the S-block rotations.
+
 ## 2024-05-15
 
 - **10:00** - Got sime time over so continuing on T-block rotation.
