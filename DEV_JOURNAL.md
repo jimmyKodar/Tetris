@@ -13,6 +13,12 @@
   - HTML5 canvas
   - webGL / webGPU
 
+## 2024-05-17
+
+- **22:04** - Start to add next block type. Z-block.
+
+* **22:28** - Z-block done.
+
 ## 2024-05-16
 
 - **22:26** - Forgot to note start time but spent perhaps 40minutes implementing the S-block rotations.

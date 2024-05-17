@@ -169,24 +169,78 @@ function rotateBlockClockwise() {
       }
     }
   }
-  // Block 4 =
+  // Block 4 = Z-block
   if (blockNr == 4 && !blockCollidedDownward()) {
     if (rotationState == 1) {
-      rotationState = 2;
+      for (let y = 0; y < gameBoard.length - 1; y++) {
+        for (let x = 1; x < gameBoard[0].length - 1; x++) {
+          if (gameBoard[y][x] === 1 && gameBoard[y][x + 2] == 0 && gameBoard[y + 2][x + 1] == 0) {
+            gameBoard[y][x] = 0;
+            gameBoard[y][x + 2] = 1;
+
+            gameBoard[y][x + 1] = 0;
+            gameBoard[y + 2][x + 1] = 1;
+
+            rotationState = 2;
+            return;
+          }
+        }
+      }
     }
     if (rotationState == 2) {
-      rotationState = 3;
+      for (let y = 0; y < gameBoard.length - 1; y++) {
+        for (let x = 1; x < gameBoard[0].length - 1; x++) {
+          if (gameBoard[y][x] === 1 && gameBoard[y + 2][x] == 0 && gameBoard[y + 1][x - 2] == 0) {
+            gameBoard[y][x] = 0;
+            gameBoard[y + 2][x] = 1;
+
+            gameBoard[y + 1][x] = 0;
+            gameBoard[y + 1][x - 2] = 1;
+
+            rotationState = 3;
+            return;
+          }
+        }
+      }
     }
     if (rotationState == 3) {
-      rotationState = 4;
+      for (let y = gameBoard.length - 1; y >= 0; y--) {
+        for (let x = gameBoard[0].length - 1; x >= 0; x--) {
+          if (gameBoard[y][x] === 1 && gameBoard[y][x - 2] == 0 && gameBoard[y - 2][x - 1] == 0) {
+            gameBoard[y][x] = 0;
+            gameBoard[y][x - 2] = 1;
+
+            gameBoard[y][x - 1] = 0;
+            gameBoard[y - 2][x - 1] = 1;
+
+            rotationState = 4;
+            return;
+          }
+        }
+      }
     }
     if (rotationState == 4) {
-      rotationState = 1;
+      for (let y = gameBoard.length - 1; y >= 0; y--) {
+        for (let x = gameBoard[0].length - 1; x >= 0; x--) {
+          if (gameBoard[y][x] === 1 && gameBoard[y - 2][x] == 0 && gameBoard[y - 1][x + 2] == 0) {
+            gameBoard[y][x] = 0;
+            gameBoard[y - 2][x] = 1;
+
+            gameBoard[y - 1][x] = 0;
+            gameBoard[y - 1][x + 2] = 1;
+
+            rotationState = 1;
+            return;
+          }
+        }
+      }
     }
   }
 }
+
 function spawnRandomBlock() {
-  blockNr = 1 + Math.floor(Math.random() * 3);
+  blockNr = 1 + Math.floor(Math.random() * 4);
+  // blockNr = 4;
   // spawn O-block
   if (blockNr == 1) {
     gameBoard[0][5] = 1;
@@ -207,6 +261,13 @@ function spawnRandomBlock() {
     gameBoard[1][5] = 1;
     gameBoard[1][4] = 1;
     gameBoard[0][6] = 1;
+  }
+  // spawn Z-block
+  if (blockNr == 4) {
+    gameBoard[0][4] = 1;
+    gameBoard[0][5] = 1;
+    gameBoard[1][5] = 1;
+    gameBoard[1][6] = 1;
   }
 }
 function moveDown() {
@@ -301,14 +362,14 @@ const gameBoard = [
 let gameBoardDiv = document.querySelector(".gameBoard");
 
 // time globals
-const defaultFPS = 3;
+const defaultFPS = 5;
 const quickDropFPS = 60;
 let frameTime = 1000 / defaultFPS;
 let PrevUpdateTime = performance.now();
 let animationFrameRequestID;
 let pauseGame = false;
 // rotation globals: rotation state är en int från 1->4 som håller koll på blocken snurr. Nollställs varje freeze
-let blockNr;
+let blockNr = 1 + Math.floor(Math.random() * 3);
 rotationState = 1;
 // keyboard globals
 document.addEventListener("keydown", keyDown);
@@ -377,14 +438,29 @@ function keyUp(key) {
 }
 /////////////////////////////////////////////////////////////////////////////
 // GRAPHICS
+function blockColor() {
+  if (blockNr == 1) {
+    return "oBlock";
+  }
+  if (blockNr == 2) {
+    return "tBlock";
+  }
+
+  if (blockNr == 3) {
+    return "sBlock";
+  }
+}
+
 function render() {
   for (let i = 0; i < gameBoard.length - 1; i++) {
     for (let j = 1; j < gameBoard[0].length - 1; j++) {
       if (gameBoard[i][j] === 1) {
         document.getElementById(`${j},${i}`).classList.remove("backgroundBlock");
         document.getElementById(`${j},${i}`).classList.add("liveBlock");
+        document.getElementById(`${j},${i}`).classList.add(blockColor());
       }
       if (gameBoard[i][j] === 0) {
+        document.getElementById(`${j},${i}`).classList.remove("liveBlock", blockColor());
         document.getElementById(`${j},${i}`).classList.add("backgroundBlock");
       }
       if (gameBoard[i][j] === -1) {
@@ -396,6 +472,7 @@ function render() {
     }
   }
 }
+
 function createBlocks() {
   for (let i = gameBoard.length - 1; i >= 0; i--) {
     for (let j = gameBoard[0].length - 1; j >= 0; j--) {

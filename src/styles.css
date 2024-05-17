@@ -25,8 +25,7 @@ body {
   height: 10px;
 }
 .liveBlock {
-  background-color: white;
-  border-radius: 20%;
+  border-radius: 15%;
   border: 1px solid black;
 }
 
@@ -36,15 +35,41 @@ body {
 
 .sideEdge,
 .bottomEdge {
-  background-color: black;
+  background-color: darkgray;
+  border-radius: 15%;
+  border: 1px solid black;
 }
 
 .frozenBlock {
-  background-color: white;
-  border-radius: 20%;
   border: 1px solid black;
+  border-radius: 15%;
+  filter: opacity(0.5);
+  transition: all 500ms cubic-bezier(0.25, 0.1, 0.25, 1); /* ease (default) */
+  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1); /* ease (default) */
 }
 
 .spawnAreaBlock {
   background-color: black;
+}
+
+.iBlock {
+  background-color: hsl(180, 100%, 50%);
+}
+.jBlock {
+  background-color: hsl(240, 100%, 50%);
+}
+.lBlock {
+  background-color: hsl(40, 100%, 50%);
+}
+.oBlock {
+  background-color: hsl(60, 100%, 50%);
+}
+.sBlock {
+  background-color: hsl(120, 100%, 50%);
+}
+.tBlock {
+  background-color: hsl(276, 100%, 50%);
+}
+.zBlock {
+  background-color: hsl(0, 100%, 50%);
 }
