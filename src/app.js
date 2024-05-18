@@ -48,7 +48,7 @@ function freezeBlocks() {
 }
 function rotateBlockClockwise() {
   // Checkar också så att det inte är supernära tills att blocken ska freeza.
-  // Kunde bugga ibland om man pepprade rotate  nära botten.
+  // Kunde bugga ibland om man pepprade rotate nära botten.
   // Block 2 = T-block
   if (blockNr == 2 && !blockCollidedDownward()) {
     if (rotationState == 1) {
@@ -345,18 +345,18 @@ function rotateBlockClockwise() {
         for (let x = 1; x < gameBoard[0].length - 1; x++) {
           if (
             gameBoard[y][x] === 1 &&
-            gameBoard[y - 2][x] == 0 &&
-            gameBoard[y + 2][x - 1] == 0 &&
-            gameBoard[y][x - 1] == 0
+            gameBoard[y][x + 2] == 0 &&
+            gameBoard[y][x + 1] == 0 &&
+            gameBoard[y + 2][x + 1] == 0
           ) {
             gameBoard[y][x] = 0;
-            gameBoard[y + 2][x] = 1;
+            gameBoard[y][x + 2] = 1;
 
             gameBoard[y + 1][x] = 0;
-            gameBoard[y + 2][x - 1] = 1;
+            gameBoard[y][x + 1] = 1;
 
-            gameBoard[y + 1][x - 2] = 0;
-            gameBoard[y][x - 1] = 1;
+            gameBoard[y + 1][x + 2] = 0;
+            gameBoard[y + 2][x + 1] = 1;
 
             rotationState = 2;
             return;
@@ -364,11 +364,87 @@ function rotateBlockClockwise() {
         }
       }
     }
+    if (rotationState == 2) {
+      for (let y = gameBoard.length - 1; y >= 0; y--) {
+        for (let x = 1; x < gameBoard[0].length - 1; x++) {
+          if (
+            gameBoard[y][x] === 1 &&
+            gameBoard[y - 1][x - 1] == 0 &&
+            gameBoard[y - 1][x + 1] == 0 &&
+            gameBoard[y][x + 1] == 0
+          ) {
+            // c
+            gameBoard[y][x] = 0;
+            gameBoard[y - 1][x - 1] = 1;
+            // b
+            gameBoard[y - 2][x] = 0;
+            gameBoard[y - 1][x + 1] = 1;
+            // a
+            gameBoard[y - 2][x + 1] = 0;
+            gameBoard[y][x + 1] = 1;
+
+            rotationState = 3;
+            return;
+          }
+        }
+      }
+    }
+    if (rotationState == 3) {
+      for (let y = gameBoard.length - 1; y >= 0; y--) {
+        for (let x = 1; x < gameBoard[0].length - 1; x++) {
+          if (
+            gameBoard[y][x] === 1 &&
+            gameBoard[y][x - 2] == 0 &&
+            gameBoard[y][x - 1] == 0 &&
+            gameBoard[y - 2][x - 1] == 0
+          ) {
+            // a
+            gameBoard[y][x] = 0;
+            gameBoard[y][x - 2] = 1;
+            // b
+            gameBoard[y - 1][x] = 0;
+            gameBoard[y][x - 1] = 1;
+            // c
+            gameBoard[y - 1][x - 2] = 0;
+            gameBoard[y - 2][x - 1] = 1;
+
+            rotationState = 4;
+            return;
+          }
+        }
+      }
+    }
+    if (rotationState == 4) {
+      for (let y = 0; y < gameBoard.length - 1; y++) {
+        for (let x = 1; x < gameBoard[0].length - 1; x++) {
+          if (
+            gameBoard[y][x] === 1 &&
+            gameBoard[y + 1][x + 1] == 0 &&
+            gameBoard[y + 1][x - 1] == 0 &&
+            gameBoard[y][x - 1] == 0
+          ) {
+            // c
+            gameBoard[y][x] = 0;
+            gameBoard[y + 1][x + 1] = 1;
+            // b
+            gameBoard[y + 2][x] = 0;
+            gameBoard[y + 1][x - 1] = 1;
+            // a
+            gameBoard[y + 2][x - 1] = 0;
+            gameBoard[y][x - 1] = 1;
+
+            rotationState = 1;
+            return;
+          }
+        }
+      }
+    }
   }
+  //
 }
 function spawnRandomBlock() {
   // blockNr = 1 + Math.floor(Math.random() * 7);
-  blockNr = 5;
+  blockNr = 6;
   // spawn O-block
   if (blockNr == 1) {
     gameBoard[0][5] = 1;
@@ -591,7 +667,6 @@ function blockColor() {
   if (blockNr == 2) {
     return "tBlock";
   }
-
   if (blockNr == 3) {
     return "sBlock";
   }

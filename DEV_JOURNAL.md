@@ -25,6 +25,7 @@
 - restart game button
 
 **10:57** - L-block rotations finished.
+**11:25** - J-block finished. LUNCH.
 
 ## 2024-05-17
 
