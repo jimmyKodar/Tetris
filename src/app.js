@@ -849,6 +849,5 @@ function setGameBoard() {
   }
 }
 /////////////////////////////////////////////////////////////////////////////
-// INITIALIZE GAME & START LOOP
-createBlocks();
+// START GAME
 startNewGame();
