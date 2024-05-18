@@ -35,6 +35,7 @@ const maxFPS = 6;
 const quickDropFPS = 20;
 let normalFPS = defaultFPS; // This one increases as the game progresses
 let frameTime = 1000 / normalFPS;
+let frameNr = 0;
 let PrevUpdateTime = performance.now();
 let animationFrameRequestID;
 let pauseGame = false;
@@ -43,7 +44,9 @@ let highScore = 0;
 // rotation globals: rotation state är en int från 1->4 som håller koll på blocken snurr. Nollställs varje freeze
 let blockNr = 1 + Math.floor(Math.random() * 7);
 rotationState = 1;
-// keyboard globals
+// controls
+let moveLeftToggle = false;
+let moveRightToggle = false;
 document.addEventListener("keydown", keyDown);
 document.addEventListener("keyup", keyUp);
 /////////////////////////////////////////////////////////////////////////////
@@ -52,6 +55,7 @@ function startNewGame() {
   if (score > highScore) {
     highScore = score;
   }
+  frameNr = 0;
   score = 0;
   normalFPS = defaultFPS;
   destroyBlocks();
@@ -666,6 +670,16 @@ function moveFrozenDown(row) {
 /////////////////////////////////////////////////////////////////////////////
 // GAME LOOP
 function gameLoop() {
+  frameNr += 1;
+  if (isSpawnFieldEmpty() && frameNr % 4 === 0) {
+    if (moveLeftToggle && !collideLeft()) {
+      moveLeft();
+    }
+    if (moveRightToggle && !collideRight()) {
+      moveRight();
+    }
+  }
+
   if (isGameOver()) {
     startNewGame();
     return;
@@ -707,14 +721,10 @@ function gameLoop() {
 // CONTROLS
 function keyDown(key) {
   if (key.key == "ArrowLeft") {
-    if (isSpawnFieldEmpty() && !collideLeft()) {
-      moveLeft();
-    }
+    moveLeftToggle = true;
   }
   if (key.key == "ArrowRight") {
-    if (isSpawnFieldEmpty() && !collideRight()) {
-      moveRight();
-    }
+    moveRightToggle = true;
   }
   if (key.key == "ArrowUp") {
     if (isSpawnFieldEmpty()) {
@@ -735,7 +745,14 @@ function keyDown(key) {
   //   }
   // }
 }
+
 function keyUp(key) {
+  if (key.key == "ArrowLeft") {
+    moveLeftToggle = false;
+  }
+  if (key.key == "ArrowRight") {
+    moveRightToggle = false;
+  }
   if (key.key == "ArrowDown") {
     frameTime = 1000 / normalFPS;
   }
