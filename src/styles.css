@@ -52,24 +52,24 @@ body {
   background-color: black;
 }
 
-.iBlock {
-  background-color: hsl(180, 100%, 50%);
-}
-.jBlock {
-  background-color: hsl(240, 100%, 50%);
-}
-.lBlock {
-  background-color: hsl(40, 100%, 50%);
-}
 .oBlock {
   background-color: hsl(60, 100%, 50%);
-}
-.sBlock {
-  background-color: hsl(120, 100%, 50%);
 }
 .tBlock {
   background-color: hsl(276, 100%, 50%);
 }
+.sBlock {
+  background-color: hsl(120, 100%, 50%);
+}
 .zBlock {
   background-color: hsl(0, 100%, 50%);
+}
+.lBlock {
+  background-color: hsl(40, 100%, 50%);
+}
+.jBlock {
+  background-color: hsl(240, 100%, 50%);
+}
+.iBlock {
+  background-color: hsl(180, 100%, 50%);
 }
