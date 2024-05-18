@@ -724,16 +724,16 @@ function keyDown(key) {
   if (key.key == "ArrowDown") {
     frameTime = 1000 / quickDropFPS;
   }
-  if (key.key == " ") {
-    if (!pauseGame) {
-      pauseGame = true;
-      cancelAnimationFrame(animationFrameRequestID);
-      animationFrameRequestID = null;
-    } else {
-      pauseGame = false;
-      animationFrameRequestID = requestAnimationFrame(gameLoop);
-    }
-  }
+  // if (key.key == " ") {
+  //   if (!pauseGame) {
+  //     pauseGame = true;
+  //     cancelAnimationFrame(animationFrameRequestID);
+  //     animationFrameRequestID = null;
+  //   } else {
+  //     pauseGame = false;
+  //     animationFrameRequestID = requestAnimationFrame(gameLoop);
+  //   }
+  // }
 }
 function keyUp(key) {
   if (key.key == "ArrowDown") {
