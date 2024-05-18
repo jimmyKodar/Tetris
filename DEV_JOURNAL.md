@@ -1,6 +1,7 @@
 ## Whats next?
 
 - Add block rotation
+- Checking `!blockCollidedDownward()` fixes collision bug when rotating right before freezing. But tetronios should be able to rotate there. Must fix.
 - remove full rows
 - start pause reset buttons
 - score counter
@@ -22,6 +23,8 @@
 - score counter
 - game over state
 - restart game button
+
+**10:57** - L-block rotations finished.
 
 ## 2024-05-17
 

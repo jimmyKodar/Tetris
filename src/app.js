@@ -338,6 +338,33 @@ function rotateBlockClockwise() {
       }
     }
   }
+  // block 6 = J-block
+  if (blockNr == 6 && !blockCollidedDownward()) {
+    if (rotationState == 1) {
+      for (let y = 0; y < gameBoard.length - 1; y++) {
+        for (let x = 1; x < gameBoard[0].length - 1; x++) {
+          if (
+            gameBoard[y][x] === 1 &&
+            gameBoard[y - 2][x] == 0 &&
+            gameBoard[y + 2][x - 1] == 0 &&
+            gameBoard[y][x - 1] == 0
+          ) {
+            gameBoard[y][x] = 0;
+            gameBoard[y + 2][x] = 1;
+
+            gameBoard[y + 1][x] = 0;
+            gameBoard[y + 2][x - 1] = 1;
+
+            gameBoard[y + 1][x - 2] = 0;
+            gameBoard[y][x - 1] = 1;
+
+            rotationState = 2;
+            return;
+          }
+        }
+      }
+    }
+  }
 }
 function spawnRandomBlock() {
   // blockNr = 1 + Math.floor(Math.random() * 7);
