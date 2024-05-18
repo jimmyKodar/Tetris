@@ -658,6 +658,35 @@ function collideRight() {
 function setFPS(reqestedFPS) {
   return (frameTime = 1000 / reqestedFPS);
 }
+
+function removeFullRow() {
+  for (let y = 0; y < gameBoard.length - 1; y++) {
+    let counter = 0;
+    for (let x = gameBoard[0].length - 2; x >= 1; x--) {
+      if (gameBoard[y][x] === -1) {
+        counter += 1;
+        if (counter == 10) {
+          for (let xx = gameBoard[0].length - 2; xx >= 1; xx--) {
+            gameBoard[y][xx] = 0;
+          }
+          moveFrozenDown(y);
+          return true;
+        }
+      }
+    }
+  }
+  false;
+}
+function moveFrozenDown(row) {
+  for (row; row >= 1; row--) {
+    for (let x = gameBoard[0].length - 2; x >= 1; x--) {
+      if (gameBoard[row][x] == -1) {
+        gameBoard[row][x] = 0;
+        gameBoard[row + 1][x] = -1;
+      }
+    }
+  }
+}
 /////////////////////////////////////////////////////////////////////////////
 //////////////////////         GLOBALS         //////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
@@ -714,6 +743,9 @@ function gameLoop() {
     if (blockCollidedDownward()) {
       freezeBlocks();
       rotationState = 1;
+      while (removeFullRow()) {
+        removeFullRow();
+      }
     } else {
       moveDown();
     }
@@ -797,19 +829,20 @@ function render() {
   for (let i = 0; i < gameBoard.length - 1; i++) {
     for (let j = 1; j < gameBoard[0].length - 1; j++) {
       if (gameBoard[i][j] === 1) {
-        document.getElementById(`${j},${i}`).classList.remove("backgroundBlock");
-        document.getElementById(`${j},${i}`).classList.add("liveBlock");
-        document.getElementById(`${j},${i}`).classList.add(blockColor());
+        document.getElementById(`${j},${i}`).removeAttribute("class");
+        document.getElementById(`${j},${i}`).classList.add("block", "liveBlock", blockColor());
       }
       if (gameBoard[i][j] === 0) {
-        document.getElementById(`${j},${i}`).classList.remove("liveBlock", blockColor());
-        document.getElementById(`${j},${i}`).classList.add("backgroundBlock");
+        document.getElementById(`${j},${i}`).removeAttribute("class");
+        document.getElementById(`${j},${i}`).classList.add("block", "backgroundBlock");
       }
       if (gameBoard[i][j] === -1) {
-        document.getElementById(`${j},${i}`).classList.add("frozenBlock");
+        document.getElementById(`${j},${i}`).removeAttribute("class");
+        document.getElementById(`${j},${i}`).classList.add("block", "frozenBlock");
       }
       if (i <= 2) {
-        document.getElementById(`${j},${i}`).classList.add("spawnAreaBlock");
+        document.getElementById(`${j},${i}`).removeAttribute("class");
+        document.getElementById(`${j},${i}`).classList.add("block", "spawnAreaBlock");
       }
     }
   }

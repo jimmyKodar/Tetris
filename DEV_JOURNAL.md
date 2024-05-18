@@ -1,8 +1,8 @@
 ## Whats next?
 
-- Add block rotation
+- Blue block has a rotationbug at the edges
 - Checking `!blockCollidedDownward()` fixes collision bug when rotating right before freezing. But tetronios should be able to rotate there. Must fix.
-- remove full rows
+- Green row has a rotation bug
 - start pause reset buttons
 - score counter
 - save score to file
@@ -19,7 +19,7 @@
 **10:09** - Can program a lot today so goal is to finish:
 
 - ~~all blocks + rotations~~
-- full rows are removed
+- ~~full rows are removed~~
 - score counter
 - game over state
 - restart game button
@@ -28,6 +28,9 @@
 **11:25** - J-block finished. LUNCH.
 **11:43** - back from lunch. starting last block
 **12:17** - All blocks and rotations finished.
+**12:53** - game over and game restart states finished
+**14:11** - stuck at movingDown rows, its the same as previously, i try to do to much atthe same time. Will split up everything in intosmall functions now instead.
+**14:28** - Row removal works now.
 
 ## 2024-05-17
 
