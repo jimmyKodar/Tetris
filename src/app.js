@@ -1,10 +1,59 @@
 /////////////////////////////////////////////////////////////////////////////
+//////////////////////         GLOBALS         //////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+const gameBoard = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+];
+let gameBoardDiv = document.querySelector(".gameBoard");
+
+// time globals
+const defaultFPS = 2;
+const maxFPS = 6;
+const quickDropFPS = 20;
+let normalFPS = defaultFPS; // This one increases as the game progresses
+let frameTime = 1000 / normalFPS;
+let PrevUpdateTime = performance.now();
+let animationFrameRequestID;
+let pauseGame = false;
+let score = 0;
+let highScore = 0;
+// rotation globals: rotation state är en int från 1->4 som håller koll på blocken snurr. Nollställs varje freeze
+let blockNr = 1 + Math.floor(Math.random() * 7);
+rotationState = 1;
+// keyboard globals
+document.addEventListener("keydown", keyDown);
+document.addEventListener("keyup", keyUp);
+/////////////////////////////////////////////////////////////////////////////
 // GAME LOGIC
 function startNewGame() {
   if (score > highScore) {
     highScore = score;
   }
   score = 0;
+  normalFPS = defaultFPS;
   destroyBlocks();
   createBlocks();
   setGameBoard();
@@ -585,9 +634,6 @@ function collideRight() {
   }
   return false;
 }
-function setFPS(reqestedFPS) {
-  return (frameTime = 1000 / reqestedFPS);
-}
 function removeFullRow() {
   for (let y = 0; y < gameBoard.length - 1; y++) {
     let counter = 0;
@@ -618,53 +664,6 @@ function moveFrozenDown(row) {
   }
 }
 /////////////////////////////////////////////////////////////////////////////
-//////////////////////         GLOBALS         //////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-const gameBoard = [
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-];
-let gameBoardDiv = document.querySelector(".gameBoard");
-
-// time globals
-const defaultFPS = 2;
-const quickDropFPS = 60;
-let frameTime = 1000 / defaultFPS;
-let PrevUpdateTime = performance.now();
-let animationFrameRequestID;
-let pauseGame = false;
-let speed = 1;
-let score = 0;
-let highScore = 0;
-// rotation globals: rotation state är en int från 1->4 som håller koll på blocken snurr. Nollställs varje freeze
-let blockNr = 1 + Math.floor(Math.random() * 7);
-rotationState = 1;
-// keyboard globals
-document.addEventListener("keydown", keyDown);
-document.addEventListener("keyup", keyUp);
-/////////////////////////////////////////////////////////////////////////////
 // GAME LOOP
 function gameLoop() {
   if (isGameOver()) {
@@ -674,9 +673,16 @@ function gameLoop() {
   // Only update game logic if enough time have passed
   if (performance.now() - PrevUpdateTime >= frameTime) {
     document.querySelector(".score").innerHTML = `${score} (${highScore})`;
+    // document.querySelector(".debug").innerHTML = `${normalFPS}`;
+
+    if (normalFPS <= maxFPS) {
+      normalFPS += 0.005;
+    }
+
     if (blockCollidedDownward()) {
       freezeBlocks();
       score += 10;
+
       rotationState = 1;
       while (removeFullRow()) {
         removeFullRow();
@@ -716,7 +722,7 @@ function keyDown(key) {
     }
   }
   if (key.key == "ArrowDown") {
-    setFPS(quickDropFPS);
+    frameTime = 1000 / quickDropFPS;
   }
   if (key.key == " ") {
     if (!pauseGame) {
@@ -731,7 +737,7 @@ function keyDown(key) {
 }
 function keyUp(key) {
   if (key.key == "ArrowDown") {
-    setFPS(defaultFPS);
+    frameTime = 1000 / normalFPS;
   }
 }
 /////////////////////////////////////////////////////////////////////////////

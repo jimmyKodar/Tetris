@@ -1,6 +1,5 @@
 ## Whats next?
 
-- blocks should speed up.
 - start pause reset buttons, not only keyboard keys.
 - save score to file
 - check that all loops work for arbitrary game board sizes. But not important.
@@ -31,6 +30,7 @@
 **17:44** - had a break but managed to fix one of the bugs. Turns out that i must split up the checks befor allowing rotation. FIST check if block is 1, then check if targets are empty. When i do all these at the same time it will break some times along the walls.
 **18:47** - Fixed all collision bugs
 **21:16** - Added score and highscore, kind of is a workign game now.
+**22:24** - added speed up
 
 ## 2024-05-17
 
