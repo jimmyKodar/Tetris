@@ -18,7 +18,7 @@
 
 **10:09** - Can program a lot today so goal is to finish:
 
-- all blocks + rotations
+- ~~all blocks + rotations~~
 - full rows are removed
 - score counter
 - game over state
@@ -26,6 +26,8 @@
 
 **10:57** - L-block rotations finished.
 **11:25** - J-block finished. LUNCH.
+**11:43** - back from lunch. starting last block
+**12:17** - All blocks and rotations finished.
 
 ## 2024-05-17
 
