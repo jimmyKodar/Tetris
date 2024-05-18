@@ -1,7 +1,13 @@
 /////////////////////////////////////////////////////////////////////////////
 // GAME LOGIC
+function startNewGame() {
+  destroyBlocks();
+  createBlocks();
+  setGameBoard();
+  animationFrameRequestID = requestAnimationFrame(gameLoop);
+}
 function isGameOver() {
-  for (let i = 0; i < gameBoard[0].length; i++) {
+  for (let i = 1; i < gameBoard[0].length - 1; i++) {
     if (gameBoard[3][i] === -1) {
       console.log("GAME OVER");
       return true;
@@ -691,7 +697,7 @@ let PrevUpdateTime = performance.now();
 let animationFrameRequestID;
 let pauseGame = false;
 // rotation globals: rotation state är en int från 1->4 som håller koll på blocken snurr. Nollställs varje freeze
-let blockNr = 1 + Math.floor(Math.random() * 3);
+let blockNr = 1 + Math.floor(Math.random() * 7);
 rotationState = 1;
 // keyboard globals
 document.addEventListener("keydown", keyDown);
@@ -699,6 +705,10 @@ document.addEventListener("keyup", keyUp);
 /////////////////////////////////////////////////////////////////////////////
 // GAME LOOP
 function gameLoop() {
+  if (isGameOver()) {
+    startNewGame();
+    return;
+  }
   // Only update game logic if enough time have passed
   if (performance.now() - PrevUpdateTime >= frameTime) {
     if (blockCollidedDownward()) {
@@ -815,12 +825,22 @@ function createBlocks() {
     }
   }
 }
+function destroyBlocks() {
+  gameBoardDiv.innerHTML = "";
+}
 function setGameBoard() {
+  for (let y = 0; gameBoard.length - 1 > y; y++) {
+    for (let x = 0; gameBoard[0].length - 1 > x; x++) {
+      gameBoard[y][x] = 0;
+    }
+  }
+  // bottom
   for (let i = 0; i < gameBoard[i].length; i++) {
     gameBoard[gameBoard.length - 1][i] = -1;
     //document.getElementById(`${i},${gameBoard.length - 1}`).style.backgroundColor = "red";
     document.getElementById(`${i},${gameBoard.length - 1}`).classList.add("bottomEdge");
   }
+  // sides
   for (let i = 0; i < gameBoard.length; i++) {
     gameBoard[i][0] = -1;
     gameBoard[i][gameBoard[0].length - 1] = -1;
@@ -831,5 +851,4 @@ function setGameBoard() {
 /////////////////////////////////////////////////////////////////////////////
 // INITIALIZE GAME & START LOOP
 createBlocks();
-setGameBoard();
-animationFrameRequestID = requestAnimationFrame(gameLoop);
+startNewGame();

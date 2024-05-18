@@ -32,4 +32,3 @@ The `gameBoard[][]` has its origo at top left (index: `[0][0]`). The `gameBoard[
 
 - _(game logic, time)_ game can not go faster than screen Hz because of `requestAnimationFrame()`.
 - _(game logic, time)_ Game does not update while in the background. Also because of how `requestAnimationFrame()` works.
-- _(Rendering)_ Background color shines through on some zoom levels.
