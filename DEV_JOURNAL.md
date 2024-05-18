@@ -1,5 +1,8 @@
 ## Whats next?
 
+- Found a bug with the yellow piece. It erazed a frozen piece while itself was being frozen. Probably its because i changed side to side movmnet.
+
+- There is a graphics bug where the cicles momentarily turn to squares as they are freezing.
 - start pause reset buttons, not only keyboard keys.
 - save score to file
 - check that all loops work for arbitrary game board sizes. But not important.
