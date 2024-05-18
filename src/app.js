@@ -1,6 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
 // GAME LOGIC
 function startNewGame() {
+  if (score > highScore) {
+    highScore = score;
+  }
+  score = 0;
   destroyBlocks();
   createBlocks();
   setGameBoard();
@@ -9,7 +13,6 @@ function startNewGame() {
 function isGameOver() {
   for (let i = 1; i < gameBoard[0].length - 1; i++) {
     if (gameBoard[3][i] === -1) {
-      console.log("GAME OVER");
       return true;
     }
   }
@@ -56,7 +59,8 @@ function rotateBlockClockwise() {
   // Checkar också så att det inte är supernära tills att blocken ska freeza.
   // Kunde bugga ibland om man pepprade rotate nära botten.
   // Block 2 = T-block
-  if (blockNr == 2 && !blockCollidedDownward()) {
+  // !blockCollidedDownward();
+  if (blockNr == 2) {
     if (rotationState == 1) {
       for (let x = 1; x < gameBoard[0].length - 1; x++) {
         for (let y = 0; y < gameBoard.length - 1; y++) {
@@ -115,7 +119,7 @@ function rotateBlockClockwise() {
     }
   }
   // Block 3 = S-block
-  if (blockNr == 3 && !blockCollidedDownward()) {
+  if (blockNr == 3) {
     if (rotationState == 1) {
       for (let x = gameBoard[0].length - 1; x >= 1; x--) {
         for (let y = 0; y < gameBoard.length - 1; y++) {
@@ -183,7 +187,7 @@ function rotateBlockClockwise() {
     }
   }
   // Block 4 = Z-block
-  if (blockNr == 4 && !blockCollidedDownward()) {
+  if (blockNr == 4) {
     if (rotationState == 1) {
       for (let y = 0; y < gameBoard.length - 1; y++) {
         for (let x = 1; x < gameBoard[0].length - 1; x++) {
@@ -250,7 +254,7 @@ function rotateBlockClockwise() {
     }
   }
   // Block 5 = L-block
-  if (blockNr == 5 && !blockCollidedDownward()) {
+  if (blockNr == 5) {
     if (rotationState == 1) {
       for (let y = 0; y < gameBoard.length - 1; y++) {
         for (let x = 1; x < gameBoard[0].length - 1; x++) {
@@ -325,7 +329,7 @@ function rotateBlockClockwise() {
     }
   }
   // block 6 = J-block
-  if (blockNr == 6 && !blockCollidedDownward()) {
+  if (blockNr == 6) {
     if (rotationState == 1) {
       for (let y = 0; y < gameBoard.length - 1; y++) {
         for (let x = 1; x < gameBoard[0].length - 1; x++) {
@@ -400,7 +404,7 @@ function rotateBlockClockwise() {
     }
   }
   // block nr 7 = I-block
-  if (blockNr == 7 && !blockCollidedDownward()) {
+  if (blockNr == 7) {
     if (rotationState == 1) {
       for (let y = 0; y < gameBoard.length - 1; y++) {
         for (let x = 1; x < gameBoard[0].length - 1; x++) {
@@ -594,6 +598,7 @@ function removeFullRow() {
           for (let xx = gameBoard[0].length - 2; xx >= 1; xx--) {
             gameBoard[y][xx] = 0;
           }
+          score += 100;
           moveFrozenDown(y);
           return true;
         }
@@ -650,6 +655,9 @@ let frameTime = 1000 / defaultFPS;
 let PrevUpdateTime = performance.now();
 let animationFrameRequestID;
 let pauseGame = false;
+let speed = 1;
+let score = 0;
+let highScore = 0;
 // rotation globals: rotation state är en int från 1->4 som håller koll på blocken snurr. Nollställs varje freeze
 let blockNr = 1 + Math.floor(Math.random() * 7);
 rotationState = 1;
@@ -665,8 +673,10 @@ function gameLoop() {
   }
   // Only update game logic if enough time have passed
   if (performance.now() - PrevUpdateTime >= frameTime) {
+    document.querySelector(".score").innerHTML = `${score} (${highScore})`;
     if (blockCollidedDownward()) {
       freezeBlocks();
+      score += 10;
       rotationState = 1;
       while (removeFullRow()) {
         removeFullRow();
@@ -676,7 +686,6 @@ function gameLoop() {
     }
 
     if (isNoBlockInPlay()) {
-      console.log("Spawning new block");
       spawnRandomBlock();
     }
 
