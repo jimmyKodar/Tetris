@@ -58,48 +58,56 @@ function rotateBlockClockwise() {
   // Block 2 = T-block
   if (blockNr == 2 && !blockCollidedDownward()) {
     if (rotationState == 1) {
-      for (let row = 1; row < gameBoard[0].length - 1; row++) {
-        for (let column = 0; column < gameBoard.length - 1; column++) {
-          if (gameBoard[column][row] === 1 && gameBoard[column + 1][row + 1] === 0) {
-            gameBoard[column][row] = 0;
-            gameBoard[column + 1][row + 1] = 1;
-            rotationState = 2;
+      for (let x = 1; x < gameBoard[0].length - 1; x++) {
+        for (let y = 0; y < gameBoard.length - 1; y++) {
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y + 1][x + 1] === 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y + 1][x + 1] = 1;
+              rotationState = 2;
+            }
             return;
           }
         }
       }
     }
     if (rotationState == 2) {
-      for (let column = 0; column < gameBoard.length - 1; column++) {
-        for (let row = 1; row < gameBoard[0].length - 1; row++) {
-          if (gameBoard[column][row] === 1 && gameBoard[column + 1][row - 1] === 0) {
-            gameBoard[column][row] = 0;
-            gameBoard[column + 1][row - 1] = 1;
-            rotationState = 3;
+      for (let y = 0; y < gameBoard.length - 1; y++) {
+        for (let x = 1; x < gameBoard[0].length - 1; x++) {
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y + 1][x - 1] === 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y + 1][x - 1] = 1;
+              rotationState = 3;
+            }
             return;
           }
         }
       }
     }
     if (rotationState == 3) {
-      for (let row = gameBoard[0].length - 1; row >= 1; row--) {
-        for (let column = 0; column < gameBoard.length - 1; column++) {
-          if (gameBoard[column][row] === 1 && gameBoard[column - 1][row - 1] === 0) {
-            gameBoard[column][row] = 0;
-            gameBoard[column - 1][row - 1] = 1;
-            rotationState = 4;
+      for (let x = gameBoard[0].length - 1; x >= 1; x--) {
+        for (let y = 0; y < gameBoard.length - 1; y++) {
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y - 1][x - 1] === 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y - 1][x - 1] = 1;
+              rotationState = 4;
+            }
             return;
           }
         }
       }
     }
     if (rotationState == 4) {
-      for (let row = gameBoard[0].length - 1; row >= 1; row--) {
-        for (let column = gameBoard.length - 1; column >= 0; column--) {
-          if (gameBoard[column][row] === 1 && gameBoard[column - 1][row + 1] === 0) {
-            gameBoard[column][row] = 0;
-            gameBoard[column - 1][row + 1] = 1;
-            rotationState = 1;
+      for (let x = gameBoard[0].length - 1; x >= 1; x--) {
+        for (let y = gameBoard.length - 1; y >= 0; y--) {
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y - 1][x + 1] === 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y - 1][x + 1] = 1;
+              rotationState = 1;
+            }
             return;
           }
         }
@@ -109,19 +117,16 @@ function rotateBlockClockwise() {
   // Block 3 = S-block
   if (blockNr == 3 && !blockCollidedDownward()) {
     if (rotationState == 1) {
-      // rightmost down
-      for (let row = gameBoard[0].length - 1; row >= 1; row--) {
-        for (let column = 0; column < gameBoard.length - 1; column++) {
-          // OBS KOLLAR BÅDA TARGETS EFTERSOM DET ÄR TVÅ BLOCKS SOM FLYTTAS
-          if (gameBoard[column][row] === 1 && gameBoard[column + 1][row] === 0 && gameBoard[column + 2][row] === 0) {
-            // move one block
-            gameBoard[column][row] = 0;
-            gameBoard[column + 1][row] = 1;
-            // move the second block
-            gameBoard[column + 1][row - 2] = 0;
-            gameBoard[column + 2][row] = 1;
-
-            rotationState = 2;
+      for (let x = gameBoard[0].length - 1; x >= 1; x--) {
+        for (let y = 0; y < gameBoard.length - 1; y++) {
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y + 1][x] === 0 && gameBoard[y + 2][x] === 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y + 1][x] = 1;
+              gameBoard[y + 1][x - 2] = 0;
+              gameBoard[y + 2][x] = 1;
+              rotationState = 2;
+            }
             return;
           }
         }
@@ -131,7 +136,7 @@ function rotateBlockClockwise() {
       for (let y = 0; y < gameBoard.length; y++) {
         for (let x = 1; x < gameBoard[0].length; x++) {
           if (gameBoard[y][x] === 1) {
-            if (gameBoard[y + 2][x] == 0 && gameBoard[y + 2][x - 1] == 0) {
+            if (gameBoard[y + 2][x] === 0 && gameBoard[y + 2][x - 1] === 0) {
               gameBoard[y][x] = 0;
               gameBoard[y + 2][x] = 1;
 
@@ -147,30 +152,30 @@ function rotateBlockClockwise() {
     if (rotationState == 3) {
       for (let x = gameBoard[0].length - 1; x > 0; x--) {
         for (let y = 0; y < gameBoard.length - 1; y++) {
-          if (gameBoard[y][x] === 1 && gameBoard[y][x - 2] == 0 && gameBoard[y - 1][x - 2] == 0) {
-            gameBoard[y][x] = 0;
-            gameBoard[y][x - 2] = 1;
-
-            gameBoard[y + 1][x - 2] = 0;
-            gameBoard[y - 1][x - 2] = 1;
-            rotationState = 4;
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y][x - 2] === 0 && gameBoard[y - 1][x - 2] === 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y][x - 2] = 1;
+              gameBoard[y + 1][x - 2] = 0;
+              gameBoard[y - 1][x - 2] = 1;
+              rotationState = 4;
+            }
             return;
           }
         }
       }
     }
-
     if (rotationState == 4) {
       for (let y = 0; y < gameBoard.length - 1; y++) {
         for (let x = 1; x < gameBoard[0].length - 1; x++) {
-          if (gameBoard[y][x] === 1 && gameBoard[y][x + 2] == 0 && gameBoard[y][x + 1] == 0) {
-            gameBoard[y][x] = 0;
-            gameBoard[y][x + 2] = 1;
-
-            gameBoard[y + 2][x + 1] = 0;
-            gameBoard[y][x + 1] = 1;
-
-            rotationState = 1;
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y][x + 2] === 0 && gameBoard[y][x + 1] === 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y][x + 2] = 1;
+              gameBoard[y + 2][x + 1] = 0;
+              gameBoard[y][x + 1] = 1;
+              rotationState = 1;
+            }
             return;
           }
         }
@@ -182,14 +187,14 @@ function rotateBlockClockwise() {
     if (rotationState == 1) {
       for (let y = 0; y < gameBoard.length - 1; y++) {
         for (let x = 1; x < gameBoard[0].length - 1; x++) {
-          if (gameBoard[y][x] === 1 && gameBoard[y][x + 2] == 0 && gameBoard[y + 2][x + 1] == 0) {
-            gameBoard[y][x] = 0;
-            gameBoard[y][x + 2] = 1;
-
-            gameBoard[y][x + 1] = 0;
-            gameBoard[y + 2][x + 1] = 1;
-
-            rotationState = 2;
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y][x + 2] == 0 && gameBoard[y + 2][x + 1] == 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y][x + 2] = 1;
+              gameBoard[y][x + 1] = 0;
+              gameBoard[y + 2][x + 1] = 1;
+              rotationState = 2;
+            }
             return;
           }
         }
@@ -198,14 +203,14 @@ function rotateBlockClockwise() {
     if (rotationState == 2) {
       for (let y = 0; y < gameBoard.length - 1; y++) {
         for (let x = 1; x < gameBoard[0].length - 1; x++) {
-          if (gameBoard[y][x] === 1 && gameBoard[y + 2][x] == 0 && gameBoard[y + 1][x - 2] == 0) {
-            gameBoard[y][x] = 0;
-            gameBoard[y + 2][x] = 1;
-
-            gameBoard[y + 1][x] = 0;
-            gameBoard[y + 1][x - 2] = 1;
-
-            rotationState = 3;
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y + 2][x] == 0 && gameBoard[y + 1][x - 2] == 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y + 2][x] = 1;
+              gameBoard[y + 1][x] = 0;
+              gameBoard[y + 1][x - 2] = 1;
+              rotationState = 3;
+            }
             return;
           }
         }
@@ -214,14 +219,14 @@ function rotateBlockClockwise() {
     if (rotationState == 3) {
       for (let y = gameBoard.length - 1; y >= 0; y--) {
         for (let x = gameBoard[0].length - 1; x >= 0; x--) {
-          if (gameBoard[y][x] === 1 && gameBoard[y][x - 2] == 0 && gameBoard[y - 2][x - 1] == 0) {
-            gameBoard[y][x] = 0;
-            gameBoard[y][x - 2] = 1;
-
-            gameBoard[y][x - 1] = 0;
-            gameBoard[y - 2][x - 1] = 1;
-
-            rotationState = 4;
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y][x - 2] == 0 && gameBoard[y - 2][x - 1] == 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y][x - 2] = 1;
+              gameBoard[y][x - 1] = 0;
+              gameBoard[y - 2][x - 1] = 1;
+              rotationState = 4;
+            }
             return;
           }
         }
@@ -230,14 +235,14 @@ function rotateBlockClockwise() {
     if (rotationState == 4) {
       for (let y = gameBoard.length - 1; y >= 0; y--) {
         for (let x = gameBoard[0].length - 1; x >= 0; x--) {
-          if (gameBoard[y][x] === 1 && gameBoard[y - 2][x] == 0 && gameBoard[y - 1][x + 2] == 0) {
-            gameBoard[y][x] = 0;
-            gameBoard[y - 2][x] = 1;
-
-            gameBoard[y - 1][x] = 0;
-            gameBoard[y - 1][x + 2] = 1;
-
-            rotationState = 1;
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y - 2][x] == 0 && gameBoard[y - 1][x + 2] == 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y - 2][x] = 1;
+              gameBoard[y - 1][x] = 0;
+              gameBoard[y - 1][x + 2] = 1;
+              rotationState = 1;
+            }
             return;
           }
         }
@@ -249,22 +254,16 @@ function rotateBlockClockwise() {
     if (rotationState == 1) {
       for (let y = 0; y < gameBoard.length - 1; y++) {
         for (let x = 1; x < gameBoard[0].length - 1; x++) {
-          if (
-            gameBoard[y][x] === 1 &&
-            gameBoard[y - 2][x] == 0 &&
-            gameBoard[y + 2][x - 1] == 0 &&
-            gameBoard[y][x - 1] == 0
-          ) {
-            gameBoard[y][x] = 0;
-            gameBoard[y + 2][x] = 1;
-
-            gameBoard[y + 1][x] = 0;
-            gameBoard[y + 2][x - 1] = 1;
-
-            gameBoard[y + 1][x - 2] = 0;
-            gameBoard[y][x - 1] = 1;
-
-            rotationState = 2;
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y - 2][x] == 0 && gameBoard[y + 2][x - 1] == 0 && gameBoard[y][x - 1] == 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y + 2][x] = 1;
+              gameBoard[y + 1][x] = 0;
+              gameBoard[y + 2][x - 1] = 1;
+              gameBoard[y + 1][x - 2] = 0;
+              gameBoard[y][x - 1] = 1;
+              rotationState = 2;
+            }
             return;
           }
         }
@@ -273,23 +272,16 @@ function rotateBlockClockwise() {
     if (rotationState == 2) {
       for (let y = 0; y < gameBoard.length - 1; y++) {
         for (let x = 1; x < gameBoard[0].length - 1; x++) {
-          if (
-            gameBoard[y][x] === 1 &&
-            gameBoard[y + 1][x + 1] == 0 &&
-            gameBoard[y + 1][x - 1] == 0 &&
-            gameBoard[y + 2][x - 1] == 0
-          ) {
-            // c
-            gameBoard[y][x] = 0;
-            gameBoard[y + 1][x + 1] = 1;
-            // b
-            gameBoard[y + 2][x] = 0;
-            gameBoard[y + 1][x - 1] = 1;
-            // a
-            gameBoard[y + 2][x + 1] = 0;
-            gameBoard[y + 2][x - 1] = 1;
-
-            rotationState = 3;
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y + 1][x + 1] == 0 && gameBoard[y + 1][x - 1] == 0 && gameBoard[y + 2][x - 1] == 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y + 1][x + 1] = 1;
+              gameBoard[y + 2][x] = 0;
+              gameBoard[y + 1][x - 1] = 1;
+              gameBoard[y + 2][x + 1] = 0;
+              gameBoard[y + 2][x - 1] = 1;
+              rotationState = 3;
+            }
             return;
           }
         }
@@ -298,23 +290,16 @@ function rotateBlockClockwise() {
     if (rotationState == 3) {
       for (let y = gameBoard.length - 1; y >= 0; y--) {
         for (let x = 1; x < gameBoard[0].length - 1; x++) {
-          if (
-            gameBoard[y][x] === 1 &&
-            gameBoard[y - 2][x] == 0 &&
-            gameBoard[y - 2][x + 1] == 0 &&
-            gameBoard[y][x + 1] == 0
-          ) {
-            // a
-            gameBoard[y][x] = 0;
-            gameBoard[y - 2][x] = 1;
-            // b
-            gameBoard[y - 1][x] = 0;
-            gameBoard[y - 2][x + 1] = 1;
-            // c
-            gameBoard[y - 1][x + 2] = 0;
-            gameBoard[y][x + 1] = 1;
-
-            rotationState = 4;
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y - 2][x] == 0 && gameBoard[y - 2][x + 1] == 0 && gameBoard[y][x + 1] == 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y - 2][x] = 1;
+              gameBoard[y - 1][x] = 0;
+              gameBoard[y - 2][x + 1] = 1;
+              gameBoard[y - 1][x + 2] = 0;
+              gameBoard[y][x + 1] = 1;
+              rotationState = 4;
+            }
             return;
           }
         }
@@ -323,23 +308,16 @@ function rotateBlockClockwise() {
     if (rotationState == 4) {
       for (let y = gameBoard.length - 1; y >= 0; y--) {
         for (let x = 1; x < gameBoard[0].length - 1; x++) {
-          if (
-            gameBoard[y][x] === 1 &&
-            gameBoard[y - 1][x - 1] == 0 &&
-            gameBoard[y - 1][x + 1] == 0 &&
-            gameBoard[y - 2][x + 1] == 0
-          ) {
-            // c
-            gameBoard[y][x] = 0;
-            gameBoard[y - 1][x - 1] = 1;
-            // b
-            gameBoard[y - 2][x] = 0;
-            gameBoard[y - 1][x + 1] = 1;
-            // a
-            gameBoard[y - 2][x - 1] = 0;
-            gameBoard[y - 2][x + 1] = 1;
-
-            rotationState = 1;
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y - 1][x - 1] == 0 && gameBoard[y - 1][x + 1] == 0 && gameBoard[y - 2][x + 1] == 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y - 1][x - 1] = 1;
+              gameBoard[y - 2][x] = 0;
+              gameBoard[y - 1][x + 1] = 1;
+              gameBoard[y - 2][x - 1] = 0;
+              gameBoard[y - 2][x + 1] = 1;
+              rotationState = 1;
+            }
             return;
           }
         }
@@ -351,22 +329,16 @@ function rotateBlockClockwise() {
     if (rotationState == 1) {
       for (let y = 0; y < gameBoard.length - 1; y++) {
         for (let x = 1; x < gameBoard[0].length - 1; x++) {
-          if (
-            gameBoard[y][x] === 1 &&
-            gameBoard[y][x + 2] == 0 &&
-            gameBoard[y][x + 1] == 0 &&
-            gameBoard[y + 2][x + 1] == 0
-          ) {
-            gameBoard[y][x] = 0;
-            gameBoard[y][x + 2] = 1;
-
-            gameBoard[y + 1][x] = 0;
-            gameBoard[y][x + 1] = 1;
-
-            gameBoard[y + 1][x + 2] = 0;
-            gameBoard[y + 2][x + 1] = 1;
-
-            rotationState = 2;
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y][x + 2] == 0 && gameBoard[y][x + 1] == 0 && gameBoard[y + 2][x + 1] == 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y][x + 2] = 1;
+              gameBoard[y + 1][x] = 0;
+              gameBoard[y][x + 1] = 1;
+              gameBoard[y + 1][x + 2] = 0;
+              gameBoard[y + 2][x + 1] = 1;
+              rotationState = 2;
+            }
             return;
           }
         }
@@ -375,23 +347,16 @@ function rotateBlockClockwise() {
     if (rotationState == 2) {
       for (let y = gameBoard.length - 1; y >= 0; y--) {
         for (let x = 1; x < gameBoard[0].length - 1; x++) {
-          if (
-            gameBoard[y][x] === 1 &&
-            gameBoard[y - 1][x - 1] == 0 &&
-            gameBoard[y - 1][x + 1] == 0 &&
-            gameBoard[y][x + 1] == 0
-          ) {
-            // c
-            gameBoard[y][x] = 0;
-            gameBoard[y - 1][x - 1] = 1;
-            // b
-            gameBoard[y - 2][x] = 0;
-            gameBoard[y - 1][x + 1] = 1;
-            // a
-            gameBoard[y - 2][x + 1] = 0;
-            gameBoard[y][x + 1] = 1;
-
-            rotationState = 3;
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y - 1][x - 1] == 0 && gameBoard[y - 1][x + 1] == 0 && gameBoard[y][x + 1] == 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y - 1][x - 1] = 1;
+              gameBoard[y - 2][x] = 0;
+              gameBoard[y - 1][x + 1] = 1;
+              gameBoard[y - 2][x + 1] = 0;
+              gameBoard[y][x + 1] = 1;
+              rotationState = 3;
+            }
             return;
           }
         }
@@ -400,23 +365,16 @@ function rotateBlockClockwise() {
     if (rotationState == 3) {
       for (let y = gameBoard.length - 1; y >= 0; y--) {
         for (let x = 1; x < gameBoard[0].length - 1; x++) {
-          if (
-            gameBoard[y][x] === 1 &&
-            gameBoard[y][x - 2] == 0 &&
-            gameBoard[y][x - 1] == 0 &&
-            gameBoard[y - 2][x - 1] == 0
-          ) {
-            // a
-            gameBoard[y][x] = 0;
-            gameBoard[y][x - 2] = 1;
-            // b
-            gameBoard[y - 1][x] = 0;
-            gameBoard[y][x - 1] = 1;
-            // c
-            gameBoard[y - 1][x - 2] = 0;
-            gameBoard[y - 2][x - 1] = 1;
-
-            rotationState = 4;
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y][x - 2] == 0 && gameBoard[y][x - 1] == 0 && gameBoard[y - 2][x - 1] == 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y][x - 2] = 1;
+              gameBoard[y - 1][x] = 0;
+              gameBoard[y][x - 1] = 1;
+              gameBoard[y - 1][x - 2] = 0;
+              gameBoard[y - 2][x - 1] = 1;
+              rotationState = 4;
+            }
             return;
           }
         }
@@ -425,50 +383,37 @@ function rotateBlockClockwise() {
     if (rotationState == 4) {
       for (let y = 0; y < gameBoard.length - 1; y++) {
         for (let x = 1; x < gameBoard[0].length - 1; x++) {
-          if (
-            gameBoard[y][x] === 1 &&
-            gameBoard[y + 1][x + 1] == 0 &&
-            gameBoard[y + 1][x - 1] == 0 &&
-            gameBoard[y][x - 1] == 0
-          ) {
-            // c
-            gameBoard[y][x] = 0;
-            gameBoard[y + 1][x + 1] = 1;
-            // b
-            gameBoard[y + 2][x] = 0;
-            gameBoard[y + 1][x - 1] = 1;
-            // a
-            gameBoard[y + 2][x - 1] = 0;
-            gameBoard[y][x - 1] = 1;
-
-            rotationState = 1;
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y + 1][x + 1] == 0 && gameBoard[y + 1][x - 1] == 0 && gameBoard[y][x - 1] == 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y + 1][x + 1] = 1;
+              gameBoard[y + 2][x] = 0;
+              gameBoard[y + 1][x - 1] = 1;
+              gameBoard[y + 2][x - 1] = 0;
+              gameBoard[y][x - 1] = 1;
+              rotationState = 1;
+            }
             return;
           }
         }
       }
     }
   }
+  // block nr 7 = I-block
   if (blockNr == 7 && !blockCollidedDownward()) {
     if (rotationState == 1) {
       for (let y = 0; y < gameBoard.length - 1; y++) {
         for (let x = 1; x < gameBoard[0].length - 1; x++) {
-          if (
-            gameBoard[y][x] === 1 &&
-            gameBoard[y - 1][x + 2] == 0 &&
-            gameBoard[y + 1][x + 2] == 0 &&
-            gameBoard[y + 2][x + 2] == 0
-          ) {
-            // a
-            gameBoard[y][x] = 0;
-            gameBoard[y - 1][x + 2] = 1;
-
-            gameBoard[y][x + 1] = 0;
-            gameBoard[y + 1][x + 2] = 1;
-
-            gameBoard[y][x + 3] = 0;
-            gameBoard[y + 2][x + 2] = 1;
-
-            rotationState = 2;
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y - 1][x + 2] == 0 && gameBoard[y + 1][x + 2] == 0 && gameBoard[y + 2][x + 2] == 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y - 1][x + 2] = 1;
+              gameBoard[y][x + 1] = 0;
+              gameBoard[y + 1][x + 2] = 1;
+              gameBoard[y][x + 3] = 0;
+              gameBoard[y + 2][x + 2] = 1;
+              rotationState = 2;
+            }
             return;
           }
         }
@@ -477,23 +422,16 @@ function rotateBlockClockwise() {
     if (rotationState == 2) {
       for (let y = 0; y < gameBoard.length - 1; y++) {
         for (let x = 1; x < gameBoard[0].length - 1; x++) {
-          if (
-            gameBoard[y][x] === 1 &&
-            gameBoard[y + 2][x - 2] == 0 &&
-            gameBoard[y + 2][x - 1] == 0 &&
-            gameBoard[y + 2][x + 1] == 0
-          ) {
-            // a
-            gameBoard[y][x] = 0;
-            gameBoard[y + 2][x - 2] = 1;
-
-            gameBoard[y + 1][x] = 0;
-            gameBoard[y + 2][x - 1] = 1;
-
-            gameBoard[y + 3][x] = 0;
-            gameBoard[y + 2][x + 1] = 1;
-
-            rotationState = 3;
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y + 2][x - 2] == 0 && gameBoard[y + 2][x - 1] == 0 && gameBoard[y + 2][x + 1] == 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y + 2][x - 2] = 1;
+              gameBoard[y + 1][x] = 0;
+              gameBoard[y + 2][x - 1] = 1;
+              gameBoard[y + 3][x] = 0;
+              gameBoard[y + 2][x + 1] = 1;
+              rotationState = 3;
+            }
             return;
           }
         }
@@ -502,23 +440,16 @@ function rotateBlockClockwise() {
     if (rotationState == 3) {
       for (let y = 0; y < gameBoard.length - 1; y++) {
         for (let x = 1; x < gameBoard[0].length - 1; x++) {
-          if (
-            gameBoard[y][x] === 1 &&
-            gameBoard[y - 2][x + 1] == 0 &&
-            gameBoard[y + 1][x + 1] == 0 &&
-            gameBoard[y - 1][x + 1] == 0
-          ) {
-            // a
-            gameBoard[y][x] = 0;
-            gameBoard[y - 2][x + 1] = 1;
-
-            gameBoard[y][x + 2] = 0;
-            gameBoard[y + 1][x + 1] = 1;
-
-            gameBoard[y][x + 3] = 0;
-            gameBoard[y - 1][x + 1] = 1;
-
-            rotationState = 4;
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y - 2][x + 1] == 0 && gameBoard[y + 1][x + 1] == 0 && gameBoard[y - 1][x + 1] == 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y - 2][x + 1] = 1;
+              gameBoard[y][x + 2] = 0;
+              gameBoard[y + 1][x + 1] = 1;
+              gameBoard[y][x + 3] = 0;
+              gameBoard[y - 1][x + 1] = 1;
+              rotationState = 4;
+            }
             return;
           }
         }
@@ -527,23 +458,16 @@ function rotateBlockClockwise() {
     if (rotationState == 4) {
       for (let y = 0; y < gameBoard.length - 1; y++) {
         for (let x = 1; x < gameBoard[0].length - 1; x++) {
-          if (
-            gameBoard[y][x] === 1 &&
-            gameBoard[y + 1][x - 1] == 0 &&
-            gameBoard[y + 1][x + 1] == 0 &&
-            gameBoard[y + 1][x + 2] == 0
-          ) {
-            // a
-            gameBoard[y][x] = 0;
-            gameBoard[y + 1][x - 1] = 1;
-
-            gameBoard[y + 2][x] = 0;
-            gameBoard[y + 1][x + 1] = 1;
-
-            gameBoard[y + 3][x] = 0;
-            gameBoard[y + 1][x + 2] = 1;
-
-            rotationState = 1;
+          if (gameBoard[y][x] === 1) {
+            if (gameBoard[y + 1][x - 1] == 0 && gameBoard[y + 1][x + 1] == 0 && gameBoard[y + 1][x + 2] == 0) {
+              gameBoard[y][x] = 0;
+              gameBoard[y + 1][x - 1] = 1;
+              gameBoard[y + 2][x] = 0;
+              gameBoard[y + 1][x + 1] = 1;
+              gameBoard[y + 3][x] = 0;
+              gameBoard[y + 1][x + 2] = 1;
+              rotationState = 1;
+            }
             return;
           }
         }
@@ -552,8 +476,7 @@ function rotateBlockClockwise() {
   }
 }
 function spawnRandomBlock() {
-  blockNr = 3;
-  // blockNr = 1 + Math.floor(Math.random() * 7);
+  blockNr = 1 + Math.floor(Math.random() * 7);
   // spawn O-block
   if (blockNr == 1) {
     gameBoard[0][5] = 1;

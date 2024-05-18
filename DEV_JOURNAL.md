@@ -1,8 +1,6 @@
 ## Whats next?
 
-- Blue block has a rotationbug at the edges <-- This is becausei dont FIST check if block is 1, then check if targets are empty.
 - Checking `!blockCollidedDownward()` fixes collision bug when rotating right before freezing. But tetronios should be able to rotate there. Must fix.
-- Green row has a rotation bug
 - start pause reset buttons
 - score counter
 - save score to file
@@ -33,6 +31,7 @@
 **14:28** - Row removal works now.
 **14:35** - starting to fix the rotation buggs
 **17:44** - had a break but managed to fix one of the bugs. Turns out that i must split up the checks befor allowing rotation. FIST check if block is 1, then check if targets are empty. When i do all these at the same time it will break some times along the walls.
+**18:47** - Fixed all collision bugs
 
 ## 2024-05-17
 
