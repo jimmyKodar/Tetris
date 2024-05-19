@@ -1,8 +1,9 @@
 ## Whats next?
 
+- Use JSON to represent the game and its state. 
 - start pause reset buttons
 - save score to file
-- check that all loops work for arbitrary game board sizes. But not important.
+- check that all loops work for arbitrary game board sizes.
 - When finished: Good follow-up project would be to add more rendering options
   - ASCII
   - HTML5 canvas
@@ -28,7 +29,7 @@
 **17:44** - had a break but managed to fix one of the bugs. Turns out that i must split up the checks befor allowing rotation. FIST check if block is 1, then check if targets are empty. When i do all these at the same time it will break some times along the walls.
 **18:47** - Fixed all collision bugs
 **21:16** - Added score and highscore, kind of is a workign game now.
-**22:24** - added speed up. GAME IS NOW DONE.
+**22:24** - added speed up. `GAME IS NOW DONE.`
 
 ## 2024-05-17
 
