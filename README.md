@@ -1,5 +1,10 @@
-# About
 
+
+
+
+https://github.com/jimmyKodar/Tetris/assets/169525180/8c60b2bf-bd76-4c0c-8a97-8117b9bd9654
+
+# About
 I make this Tetris clone to learn JavaScript, CSS and HTML.
 
 My goal is to keep rendering and game logic separate.
