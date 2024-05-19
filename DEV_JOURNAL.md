@@ -1,14 +1,9 @@
 ## Whats next?
 
-- Found a bug with the yellow piece. It erazed a frozen piece while itself was being frozen. Probably its because i changed side to side movmnet.
-
-- There is a graphics bug where the cicles momentarily turn to squares as they are freezing.
-- start pause reset buttons, not only keyboard keys.
+- start pause reset buttons
 - save score to file
 - check that all loops work for arbitrary game board sizes. But not important.
-- Side movment: Minor issue, holding down the keys has a lag to it, the browser has a delay before it triggers repeat on a held down key. a toggle would feel nicer.
 - When finished: Good follow-up project would be to add more rendering options
-
   - ASCII
   - HTML5 canvas
   - webGL / webGPU
@@ -33,7 +28,7 @@
 **17:44** - had a break but managed to fix one of the bugs. Turns out that i must split up the checks befor allowing rotation. FIST check if block is 1, then check if targets are empty. When i do all these at the same time it will break some times along the walls.
 **18:47** - Fixed all collision bugs
 **21:16** - Added score and highscore, kind of is a workign game now.
-**22:24** - added speed up
+**22:24** - added speed up. GAME IS NOW DONE.
 
 ## 2024-05-17
 

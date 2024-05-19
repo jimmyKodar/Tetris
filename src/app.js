@@ -30,9 +30,9 @@ const gameBoard = [
 let gameBoardDiv = document.querySelector(".gameBoard");
 
 // time globals
-const defaultFPS = 2;
-const maxFPS = 6;
-const quickDropFPS = 20;
+const defaultFPS = 3;
+const maxFPS = 10;
+const quickDropFPS = 30;
 let normalFPS = defaultFPS; // This one increases as the game progresses
 let frameTime = 1000 / normalFPS;
 let frameNr = 0;
@@ -671,14 +671,6 @@ function moveFrozenDown(row) {
 // GAME LOOP
 function gameLoop() {
   frameNr += 1;
-  if (isSpawnFieldEmpty() && frameNr % 4 === 0) {
-    if (moveLeftToggle && !collideLeft()) {
-      moveLeft();
-    }
-    if (moveRightToggle && !collideRight()) {
-      moveRight();
-    }
-  }
 
   if (isGameOver()) {
     startNewGame();
@@ -711,7 +703,14 @@ function gameLoop() {
 
     PrevUpdateTime = performance.now();
   }
-
+  if (isSpawnFieldEmpty() && frameNr % 4 === 0) {
+    if (moveLeftToggle && !collideLeft()) {
+      moveLeft();
+    }
+    if (moveRightToggle && !collideRight()) {
+      moveRight();
+    }
+  }
   render();
   if (!pauseGame) {
     requestAnimationFrame(gameLoop);
