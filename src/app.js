@@ -29,6 +29,8 @@ const gameBoard = [
 ];
 let gameBoardDiv = document.querySelector(".gameBoard");
 
+
+
 // time globals
 const defaultFPS = 3;
 const maxFPS = 10;
